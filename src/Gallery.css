@@ -1,0 +1,7 @@
+.carousel .slide {
+    background: transparent;
+}
+
+.carousel.carousel-slider .control-arrow:hover {
+    background: transparent;
+}
