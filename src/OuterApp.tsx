@@ -2,8 +2,9 @@ import React from "react";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import App from "./App";
-import {BrowserRouter as Router} from "react-router-dom";
+import App from "./public/App";
+import BackroomApp from "./backroom/App";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 
 export default function OuterApp() {
@@ -26,7 +27,10 @@ export default function OuterApp() {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <Router>
-        <App/>
+        <Switch>
+          <Route path="/backroom" component={BackroomApp} />
+          <Route component={App} />
+        </Switch>
       </Router>
     </ThemeProvider>
   );

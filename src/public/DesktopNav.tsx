@@ -42,4 +42,5 @@ class DesktopNav extends React.Component<Props, State> {
     );
   }
 }
+
 export default withStyles(styles, {withTheme: true})(DesktopNav);

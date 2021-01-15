@@ -12,10 +12,13 @@ import CardContent from "@material-ui/core/CardContent";
 
 import Countdown from "./Countdown";
 
-import hero_small from "./photos/hero-small.jpg";
-import hero_large from "./photos/hero-large.jpg";
-import hero_original from "./photos/hero-original.jpg";
-import venue_original from "./photos/venue-original.jpg";
+import hero_small from "../photos/hero-small.jpg";
+import hero_large from "../photos/hero-large.jpg";
+import hero_original from "../photos/hero-original.jpg";
+
+import venue_small from "../photos/venue-small.jpg";
+import venue_large from "../photos/venue-large.jpg";
+import venue_original from "../photos/venue-original.jpg";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -92,11 +95,22 @@ class Home extends React.Component<Props, State> {
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={6}>
                   <Card className={classes.card}>
-                    <CardMedia
-                      className={classes.card_media}
-                      image={venue_original}
-                      title="Venue"
-                    />
+                      <Image
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto",
+                          width: "auto",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                        }}
+                        url={venue_large}
+                        variants={[
+                          {url: venue_small, width: 640, height: 426},
+                          {url: venue_large, width: 1280, height: 853},
+                          // {url: venue_original, width: 5184, height: 3456},
+                        ]}
+                        altText={"venue"}
+                      />
                     <CardContent className={classes.card_content}>
                       <Typography gutterBottom variant="h5" component="h2">
                         Where
@@ -111,8 +125,8 @@ class Home extends React.Component<Props, State> {
                   <Card className={classes.card}>
                     <CardMedia
                       className={classes.card_media}
-                      image="https://source.unsplash.com/random"
                       title="Image title"
+                      image="https://source.unsplash.com/random"
                     />
                     <CardContent className={classes.card_content}>
                       <Typography gutterBottom variant="h5" component="h2">

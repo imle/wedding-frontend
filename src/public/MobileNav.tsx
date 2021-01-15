@@ -20,9 +20,7 @@ interface State {
 }
 
 class MobileNav extends React.Component<Props, State> {
-  state: State = {
-    value: "",
-  };
+  state: State = {};
 
   render() {
     const {classes} = this.props;

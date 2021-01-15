@@ -1,5 +1,5 @@
 import React from "react";
-import {Switch, Route, Redirect} from "react-router-dom";
+import {Redirect, Route, RouteComponentProps, Switch} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -14,6 +14,8 @@ import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery";
 import {tileData, TileDataItem} from "./data";
+import RSVPByCode from "./RSVPByCode";
+import RSVPSearch from "./RSVPSearch";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -60,7 +62,7 @@ const styles = (theme: Theme) => createStyles({
   },
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends WithStyles<typeof styles>, RouteComponentProps {
 }
 
 interface State {
@@ -73,13 +75,24 @@ class App extends React.Component<Props, State> {
   state: State = {
     date_of_wedding: new Date(2023, 11, 25),
     images: tileData,
-    page: "home",
+    page: ((): string => {
+      const pathParts = this.props.history.location.pathname.substr(1).split("/");
+      if (pathParts[0].length > 0) {
+        return pathParts[0];
+      } else {
+        return "home";
+      }
+    })(),
   };
 
   setPage = (value: string) => {
     this.setState({
       page: value,
     })
+  };
+
+  setRsvpCode = (code: string) => {
+    this.props.history.push(`/rsvp/${code}`);
   };
 
   render() {
@@ -112,24 +125,27 @@ class App extends React.Component<Props, State> {
                 </Typography>
               </Hidden>
             </Grid>
-            <Grid item sm={12}>
-              <Hidden xsDown>
+            <Hidden xsDown>
+              <Grid item sm={12}>
                 <DesktopNav page={this.state.page} setPage={this.setPage}/>
-              </Hidden>
-            </Grid>
-            <Grid>
+              </Grid>
+            </Hidden>
+            <Grid item xs={12}>
               <Switch>
-                <Route path="/hotels">
+                <Route path="/hotels" exact>
                   {/*<Hotels />*/}
                 </Route>
-                <Route path="/gallery">
-                  <Gallery images={this.state.images} />
+                <Route path="/gallery" exact>
+                  <Gallery images={this.state.images}/>
                 </Route>
-                <Route path="/registry">
+                <Route path="/registry" exact>
                   {/*<Registry />*/}
                 </Route>
-                <Route path="/rsvp">
-                  {/*<Rsvp />*/}
+                <Route path="/rsvp/:rsvp_code" exact render={(match: RouteComponentProps<{rsvp_code: string}>) => (
+                  <RSVPByCode code={match.match.params.rsvp_code}/>
+                )}/>
+                <Route path="/rsvp" exact>
+                  <RSVPSearch setRsvpCode={this.setRsvpCode}/>
                 </Route>
                 <Route path="/" exact>
                   <Home date_of_wedding={this.state.date_of_wedding}/>
