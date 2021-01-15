@@ -3,24 +3,16 @@ import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/sty
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {ErrorResponse, Invitee, InviteeRsvpCodeResponse} from "../types/invitee";
-import {CircularProgress} from "@material-ui/core";
+import {Party} from "../types/invitee";
+import {ErrorResponse, RsvpCodeResponse} from "../types/responses";
+import {Card, CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Link as RouterLink} from "react-router-dom";
+import Box from "@material-ui/core/Box";
 
 const styles = (theme: Theme) => createStyles({
   root: {
-    paddingTop: "calc(50vh - 200px)",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-  form: {
-    display: "block",
-    width: "100%",
-  },
-  margin: {
-    margin: theme.spacing(1, 0),
+    height: "100%",
   },
 });
 
@@ -30,14 +22,14 @@ interface Props extends WithStyles<typeof styles> {
 
 interface State {
   searching: boolean;
-  invitee: Invitee | null;
+  party: Party | null;
   error?: string;
 }
 
 class RSVPByCode extends React.Component<Props, State> {
   state: State = {
     searching: false,
-    invitee: null,
+    party: null,
   };
 
   componentDidMount() {
@@ -59,14 +51,14 @@ class RSVPByCode extends React.Component<Props, State> {
 
         return response.json()
       })
-      .then((data: ErrorResponse | InviteeRsvpCodeResponse) => {
+      .then((data: ErrorResponse | RsvpCodeResponse) => {
         if ("error" in data) throw data;
 
         return data;
       })
-      .then((data: InviteeRsvpCodeResponse) => {
+      .then((data: RsvpCodeResponse) => {
         this.setState({
-          invitee: data.invitee,
+          party: data.party,
           searching: false,
         });
       })
@@ -97,41 +89,52 @@ class RSVPByCode extends React.Component<Props, State> {
     if (this.state.error) {
       return (
         <Container className={classes.root} maxWidth="md">
-          <Grid container justify="center" spacing={2}>
+          <Grid
+            style={{
+              height: "100%",
+            }}
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={0}
+          >
             <Grid item xs={12}>
               <Typography align={"center"}>
                 {this.state.error}
               </Typography>
             </Grid>
             <Grid item xs={4}>
-              <Button
-                className={classes.margin}
-                variant={"contained"}
-                color={"primary"}
-                fullWidth
-                component={RouterLink}
-                to={"/rsvp"}
-              >
-                Search By Name
-              </Button>
+              <Box mt={2} mb={2}>
+                <Button
+                  variant={"contained"}
+                  color={"primary"}
+                  fullWidth
+                  component={RouterLink}
+                  to={"/rsvp"}
+                >
+                  Search By Name
+                </Button>
+              </Box>
             </Grid>
             <Grid item xs={4}>
-              <Button
-                className={classes.margin}
-                variant={"contained"}
-                color={"primary"}
-                fullWidth
-                // onClick={this.submitSearch}
-              >
-                Try Another Code
-              </Button>
+              <Box mt={2} mb={2}>
+                <Button
+                  variant={"contained"}
+                  color={"primary"}
+                  fullWidth
+                  // onClick={this.submitSearch}
+                >
+                  Try Another Code
+                </Button>
+              </Box>
             </Grid>
           </Grid>
         </Container>
       );
     }
 
-    if (this.state.invitee === null) {
+    if (!this.state.party) {
       return (
         <CircularProgress/>
       );
@@ -139,17 +142,26 @@ class RSVPByCode extends React.Component<Props, State> {
 
     return (
       <Container className={classes.root} maxWidth="md">
-        <Grid container justify="center" spacing={2}>
+        <Grid
+          style={{
+            height: "100%",
+          }}
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={0}
+        >
           <Grid item xs={12}>
-            <Typography align={"center"}>
-              Name: {this.state.invitee.name}
-              {this.state.invitee.edges.Party.edges.Invitees
-                .filter((related) => related.code !== this.state.invitee!.code)
-                .map((related, i) => (
-                  <React.Fragment key={i}><br/>Name: {related.name}</React.Fragment>
-                ))
-              }
-            </Typography>
+            <Card>
+              <Typography align={"center"}>
+                {this.state.party.edges.Invitees
+                  .map((related, i) => (
+                    <React.Fragment key={i}>Name: {related.name}<br/></React.Fragment>
+                  ))
+                }
+              </Typography>
+            </Card>
           </Grid>
         </Grid>
       </Container>

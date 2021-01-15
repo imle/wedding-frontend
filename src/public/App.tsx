@@ -1,7 +1,6 @@
 import React from "react";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
@@ -19,14 +18,17 @@ import RSVPSearch from "./RSVPSearch";
 
 const styles = (theme: Theme) => createStyles({
   root: {
+    height: "100%",
     display: "flex",
     flexDirection: "column",
-    minHeight: "100%",
   },
-  container: {
-    padding: 0,
-    backgroundColor: theme.palette.background.default,
+  content: {
+    flex: 1,
+    flexGrow: 1,
+    overflow: "auto",
   },
+  header: {},
+  footer: {},
   title: {
     marginTop: theme.spacing(3),
     // fontFamily: `cursive`,
@@ -56,9 +58,6 @@ const styles = (theme: Theme) => createStyles({
     bottom: 0,
     left: 0,
     right: 0,
-  },
-  footer: {
-    marginTop: "auto",
   },
 });
 
@@ -99,72 +98,72 @@ class App extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      <Box className={classes.root}>
-        <Container className={classes.container} maxWidth="xl">
-          <Grid container>
-            <Grid item xs={12}>
-              <Hidden smDown>
-                <Grid container alignItems={"center"} className={classes.title_space}>
-                  <Grid item xs={9}>
-                    <Typography className={classes.title} variant="h1" component="h2">
-                      Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Typography variant={"h6"} align={"right"}>
-                      <span>A Place Name<br/></span>
-                      <span>Somewhere, GA 30312<br/></span>
-                      <Countdown day={this.state.date_of_wedding}/>
-                    </Typography>
-                  </Grid>
+      <Box className={classes.root} maxWidth={"xl"}>
+        <Box className={classes.header}>
+          <Grid item xs={12}>
+            <Hidden smDown>
+              <Grid container alignItems={"center"} className={classes.title_space}>
+                <Grid item xs={9}>
+                  <Typography className={classes.title} variant="h1" component="h2">
+                    Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
+                  </Typography>
                 </Grid>
-              </Hidden>
-              <Hidden mdUp>
-                <Typography className={classes.title} variant="h1" component="h2" align={"center"}>
-                  Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
-                </Typography>
-              </Hidden>
-            </Grid>
-            <Hidden xsDown>
-              <Grid item sm={12}>
-                <DesktopNav page={this.state.page} setPage={this.setPage}/>
+                <Grid item xs={3}>
+                  <Typography variant={"h6"} align={"right"}>
+                    <span>A Place Name<br/></span>
+                    <span>Somewhere, GA 30312<br/></span>
+                    <Countdown day={this.state.date_of_wedding}/>
+                  </Typography>
+                </Grid>
               </Grid>
             </Hidden>
-            <Grid item xs={12}>
-              <Switch>
-                <Route path="/hotels" exact>
-                  {/*<Hotels />*/}
-                </Route>
-                <Route path="/gallery" exact>
-                  <Gallery images={this.state.images}/>
-                </Route>
-                <Route path="/registry" exact>
-                  {/*<Registry />*/}
-                </Route>
-                <Route path="/rsvp/:rsvp_code" exact render={(match: RouteComponentProps<{rsvp_code: string}>) => (
-                  <RSVPByCode code={match.match.params.rsvp_code}/>
-                )}/>
-                <Route path="/rsvp" exact>
-                  <RSVPSearch setRsvpCode={this.setRsvpCode}/>
-                </Route>
-                <Route path="/" exact>
-                  <Home date_of_wedding={this.state.date_of_wedding}/>
-                </Route>
-                <Route path="*">
-                  <Redirect to={{pathname: "/"}}/>
-                </Route>
-              </Switch>
-            </Grid>
+            <Hidden mdUp>
+              <Typography className={classes.title} variant="h1" component="h2" align={"center"}>
+                Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
+              </Typography>
+            </Hidden>
           </Grid>
-        </Container>
-        <Hidden smUp>
-          <Box className={classes.footer}>
-            <BottomNavigation/>
-          </Box>
-          <Box className={classes.mobile_nav}>
-            <MobileNav page={this.state.page} setPage={this.setPage}/>
-          </Box>
-        </Hidden>
+          <Hidden xsDown>
+            <Grid item sm={12}>
+              <DesktopNav page={this.state.page} setPage={this.setPage}/>
+            </Grid>
+          </Hidden>
+        </Box>
+        <Box className={classes.content}>
+          <Switch>
+            <Route path="/hotels" exact>
+              {/*<Hotels />*/}
+            </Route>
+            <Route path="/gallery" exact>
+              <Gallery images={this.state.images}/>
+            </Route>
+            <Route path="/registry" exact>
+              {/*<Registry />*/}
+            </Route>
+            <Route path="/rsvp/:rsvp_code" exact render={(match: RouteComponentProps<{ rsvp_code: string }>) => (
+              <RSVPByCode code={match.match.params.rsvp_code}/>
+            )}/>
+            <Route path="/rsvp" exact>
+              <RSVPSearch setRsvpCode={this.setRsvpCode}/>
+            </Route>
+            <Route path="/" exact>
+              <Home date_of_wedding={this.state.date_of_wedding}/>
+            </Route>
+            <Route path="*">
+              <Redirect to={{pathname: "/"}}/>
+            </Route>
+          </Switch>
+        </Box>
+        <Box className={classes.footer}>
+          <Hidden smUp>
+            <Box>
+              <BottomNavigation/>
+            </Box>
+            <Box className={classes.mobile_nav}>
+              <MobileNav page={this.state.page} setPage={this.setPage}/>
+            </Box>
+          </Hidden>
+        </Box>
       </Box>
     );
   }
