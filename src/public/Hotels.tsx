@@ -49,9 +49,9 @@ class Hotels extends React.Component<Props, State> {
 
     return (
       <Container className={classes.root} maxWidth="xl">
-        <Grid container spacing={4}>
-          {accommodations.map((accommodation) => (
-            <Grid item xs={12} md={6}>
+        <Grid container spacing={4} justify={"center"}>
+          {accommodations.map((accommodation, i) => (
+            <Grid key={accommodation.name} item xs={12} sm={i === 0 ? 12 : 6}>
               <Card className={classes.card}>
                 <Image
                   style={{
@@ -74,7 +74,7 @@ class Hotels extends React.Component<Props, State> {
                 </CardContent>
                 <CardActions>
                   <ButtonGroup variant="text" color="primary" fullWidth>
-                    <Button component={Link} target="_blank" href={accommodation.booking_url}>Booking</Button>
+                    <Button component={Link} target="_blank" href={accommodation.booking_url}>Book</Button>
                     <Button className={classes.hidden_on_desktop} href={`tel:${accommodation.phone_number}`}>Call</Button>
                     <Button component={Link} target="_blank" href={accommodation.google_map_link}>Map</Button>
                   </ButtonGroup>
