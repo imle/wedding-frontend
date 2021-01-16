@@ -6,12 +6,11 @@ import Card from "@material-ui/core/Card";
 import {Image} from "@crystallize/react-image";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import {accommodations} from "./data";
+import {accommodations} from "../data/hotels";
 import {CardActions} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Link from "@material-ui/core/Link";
-import Hidden from "@material-ui/core/Hidden";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -66,10 +65,10 @@ class Hotels extends React.Component<Props, State> {
                   altText={"hotel"}
                 />
                 <CardContent className={classes.card_content}>
-                  <Typography gutterBottom variant="h6" component="h2">
+                  <Typography gutterBottom variant="body1" component="h6">
                     {accommodation.name}
                   </Typography>
-                  <Typography variant={"body1"} align={"center"}>
+                  <Typography variant={"subtitle2"} align={"center"}>
                     <span>{accommodation.address}</span>
                   </Typography>
                 </CardContent>

@@ -9,6 +9,7 @@ import {Card, CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Link as RouterLink} from "react-router-dom";
 import Box from "@material-ui/core/Box";
+import {APIHost} from "../data/api";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -45,7 +46,7 @@ class RSVPByCode extends React.Component<Props, State> {
   }
 
   getInviteeFromCode = (code: string, callback?: () => void) => {
-    fetch(`//${window.location.hostname}/api/v1/invitees/${encodeURIComponent(code)}`)
+    fetch(`//${APIHost}/api/v1/invitees/${encodeURIComponent(code)}`)
       .then((response) => {
         if (response.status !== 200) throw response.status;
 

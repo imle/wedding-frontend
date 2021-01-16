@@ -1,20 +1,8 @@
 import React from "react";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import Dialog from "@material-ui/core/Dialog";
 import Container from "@material-ui/core/Container";
-import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "@material-ui/core/IconButton";
-import Toolbar from "@material-ui/core/Toolbar";
-import AppBar from "@material-ui/core/AppBar";
-import Typography from "@material-ui/core/Typography";
-import {Carousel} from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./Gallery.css";
-
-import {ImageTile} from "./data";
-import Hidden from "@material-ui/core/Hidden";
+import ImageGallery, {ReactImageGalleryItem} from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -22,8 +10,6 @@ const styles = (theme: Theme) => createStyles({
     flexWrap: "wrap",
     justifyContent: "space-around",
     overflow: "hidden",
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(0, 0.5),
   },
   appBar: {
     position: "relative",
@@ -36,12 +22,27 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-  images: ImageTile[];
+  images: ReactImageGalleryItem[];
 }
 
 interface State {
   selected: null | number;
 }
+
+const images = [
+  {
+    original: 'https://picsum.photos/id/1018/1600/960/',
+    thumbnail: 'https://picsum.photos/id/1018/250/150/',
+  },
+  {
+    original: 'https://picsum.photos/id/1015/1600/960/',
+    thumbnail: 'https://picsum.photos/id/1015/250/150/',
+  },
+  {
+    original: 'https://picsum.photos/id/1019/1600/960/',
+    thumbnail: 'https://picsum.photos/id/1019/250/150/',
+  },
+];
 
 class Gallery extends React.Component<Props, State> {
   state: State = {
@@ -57,51 +58,13 @@ class Gallery extends React.Component<Props, State> {
 
     return (
       <Container className={classes.root} maxWidth={"xl"}>
-        <Hidden mdUp>
-          <GridList cellHeight={160} cols={3}>
-            {/*<GridList cellHeight={240} cols={2}>*/}
-            {this.props.images.map((tile, i) => (
-              <GridListTile key={i} cols={tile.cols || 1}>
-                <img src={tile.img} alt={tile.title} onClick={() => this.setState({selected: i})}/>
-              </GridListTile>
-            ))}
-          </GridList>
-        </Hidden>
-        <Hidden smDown>
-          <GridList cellHeight={360} cols={3}>
-            {/*<GridList cellHeight={240} cols={2}>*/}
-            {this.props.images.map((tile, i) => (
-              <GridListTile key={i} cols={tile.cols || 1}>
-                <img src={tile.img} alt={tile.title} onClick={() => this.setState({selected: i})}/>
-              </GridListTile>
-            ))}
-          </GridList>
-        </Hidden>
-        <Dialog fullScreen open={this.state.selected !== null} onClose={this.handleClose}>
-          <AppBar className={classes.appBar}>
-            <Toolbar>
-              <IconButton edge="start" color="inherit" onClick={this.handleClose} aria-label="close">
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="h6" className={classes.title}>
-                Gallery
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <Container>
-            <Carousel interval={this.state.selected as number} useKeyboardArrows autoFocus showThumbs={false}>
-              {this.props.images.map((tile, i) => (
-                <div key={i}>
-                  <h3>{tile.title}</h3>
-                  <img
-                    src={tile.img}
-                    alt={tile.title}
-                  />
-                </div>
-              ))}
-            </Carousel>
-          </Container>
-        </Dialog>
+        <ImageGallery
+          items={images}
+          slideInterval={6000}
+          autoPlay
+          lazyLoad
+          infinite
+        />
       </Container>
     );
   }

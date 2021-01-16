@@ -113,13 +113,19 @@ class Home extends React.Component<Props, State> {
                       altText={"venue"}
                     />
                     <CardContent className={classes.card_content}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Where
-                      </Typography>
-                      <Typography variant={"h6"} align={"center"}>
-                        <span>The Estate<br/></span>
-                        <span>Atlanta, GA 30305<br/></span>
-                      </Typography>
+                      <Grid container>
+                        <Grid item xs={6}>
+                          <Typography gutterBottom variant="subtitle1">
+                            Where
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Typography variant={"subtitle1"} align={"right"}>
+                            The Estate<br/>
+                            Atlanta, GA 30305<br/>
+                          </Typography>
+                        </Grid>
+                      </Grid>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -131,14 +137,20 @@ class Home extends React.Component<Props, State> {
                       image="https://source.unsplash.com/random"
                     />
                     <CardContent className={classes.card_content}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        When
-                      </Typography>
-                      <Typography variant={"h6"} align={"center"}>
-                        {format(this.props.date_of_wedding, "iiii, MMMM dd, yyyy")} @ {format(this.props.date_of_wedding, "h:mm a")}
-                        <br/>
-                        <Countdown day={this.props.date_of_wedding}/>
-                      </Typography>
+                      <Grid container>
+                        <Grid item xs={4}>
+                          <Typography gutterBottom variant="subtitle1">
+                            When
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                          <Typography variant={"subtitle1"} align={"right"}>
+                            {format(this.props.date_of_wedding, "iiii, MMMM dd, yyyy")}
+                            <br/>
+                            {format(this.props.date_of_wedding, "h:mm a")}
+                          </Typography>
+                        </Grid>
+                      </Grid>
                     </CardContent>
                   </Card>
                 </Grid>

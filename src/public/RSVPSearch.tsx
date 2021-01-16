@@ -14,15 +14,11 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
+import {APIHost} from "../data/api";
 
 const styles = (theme: Theme) => createStyles({
   root: {
     height: "100%",
-  },
-  form: {
-    width: "100%",
-    height: "100%",
-    display: "block",
   },
 });
 
@@ -53,7 +49,9 @@ class RSVPSearch extends React.Component<Props, State> {
   }
 
   searchForInviteeCode = (name: string) => {
-    fetch(`//${window.location.hostname}/api/v1/invitees?query=${encodeURIComponent(name)}`)
+    console.log(process.env);
+
+    fetch(`//${APIHost}/api/v1/invitees?query=${encodeURIComponent(name)}`)
       .then((response) => {
         if (response.status !== 200) throw response.status;
 
@@ -125,43 +123,46 @@ class RSVPSearch extends React.Component<Props, State> {
     if (this.state.matches && this.state.matches.length > 1) {
       return (
         <Container className={classes.root} maxWidth="sm">
-          <form className={classes.form} noValidate autoComplete="off" onSubmit={this.submitSelectedCode}>
-            <Grid
-              style={{
-                height: "100%",
-              }}
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              spacing={0}
-            >
-              <Grid item xs={12}>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Matches</FormLabel>
-                  <RadioGroup value={this.state.selected_code} onChange={this.setSelectedCode}>
-                    {this.state.matches.map((match) => (
-                      <FormControlLabel
-                        key={match.code}
-                        value={match.code}
-                        control={<Radio/>}
-                        label={match.edges.Invitees.map((i) => i.name).join(", ")}/>
-                    ))}
-                  </RadioGroup>
-                </FormControl>
-                <Box mt={2} display="flex" flexDirection="row-reverse">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    disabled={!this.state.selected_code}
-                    onClick={this.submitSelectedCode}
-                  >
-                    Select
-                  </Button>
-                </Box>
-              </Grid>
+          <Grid
+            style={{
+              height: "100%",
+            }}
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={0}
+
+            component="form"
+            noValidate
+            autoComplete="off"
+            onSubmit={this.submitSelectedCode}
+          >
+            <Grid item xs={12}>
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Matches</FormLabel>
+                <RadioGroup value={this.state.selected_code} onChange={this.setSelectedCode}>
+                  {this.state.matches.map((match) => (
+                    <FormControlLabel
+                      key={match.code}
+                      value={match.code}
+                      control={<Radio/>}
+                      label={match.edges.Invitees.map((i) => i.name).join(", ")}/>
+                  ))}
+                </RadioGroup>
+              </FormControl>
+              <Box mt={2} display="flex" flexDirection="row-reverse">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={!this.state.selected_code}
+                  onClick={this.submitSelectedCode}
+                >
+                  Select
+                </Button>
+              </Box>
             </Grid>
-          </form>
+          </Grid>
         </Container>
       );
     }
@@ -182,41 +183,46 @@ class RSVPSearch extends React.Component<Props, State> {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={12}>
+          <Grid
+            item xs={12}
+
+            component="form"
+            noValidate
+            autoComplete="off"
+            onSubmit={this.submitSearch}
+          >
             <Box mb={2}>
               <Typography>
                 If you're responding for you and a guest (or your family),
                 you'll be able to RSVP for your entire group.
               </Typography>
             </Box>
-            <form className={classes.form} noValidate autoComplete="off" onSubmit={this.submitSearch}>
-              <Box mt={2} mb={2}>
-                <TextField
-                  label="Search by name"
-                  variant="outlined"
-                  fullWidth
-                  value={this.state.name}
-                  onChange={e => this.setState({
-                    name: e.target.value,
-                    matches: null,
-                  })}
-                  disabled={this.state.searching}
-                  error={!!error}
-                  helperText={!this.state.searching ? error : ""}
-                />
-              </Box>
-              <Box mt={2} mb={2}>
-                <Button
-                  variant={"contained"}
-                  color={"primary"}
-                  fullWidth
-                  disabled={this.state.searching}
-                  onClick={this.submitSearch}
-                >
-                  Find Your Invitation
-                </Button>
-              </Box>
-            </form>
+            <Box mt={2} mb={2}>
+              <TextField
+                label="Search by name"
+                variant="outlined"
+                fullWidth
+                value={this.state.name}
+                onChange={e => this.setState({
+                  name: e.target.value,
+                  matches: null,
+                })}
+                disabled={this.state.searching}
+                error={!!error}
+                helperText={!this.state.searching ? error : ""}
+              />
+            </Box>
+            <Box mt={2} mb={2}>
+              <Button
+                variant={"contained"}
+                color={"primary"}
+                fullWidth
+                disabled={this.state.searching}
+                onClick={this.submitSearch}
+              >
+                Find Your Invitation
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </Container>

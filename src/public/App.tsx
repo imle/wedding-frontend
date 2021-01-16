@@ -12,10 +12,11 @@ import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery";
-import {galleryImages, ImageTile} from "./data";
+import {galleryImages} from "../data/gallery";
 import RSVPByCode from "./RSVPByCode";
 import RSVPSearch from "./RSVPSearch";
 import Hotels from "./Hotels";
+import {ReactImageGalleryItem} from "react-image-gallery";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -67,7 +68,7 @@ interface Props extends WithStyles<typeof styles>, RouteComponentProps {
 
 interface State {
   date_of_wedding: Date;
-  images: ImageTile[];
+  images: ReactImageGalleryItem[];
   page: string;
 }
 
