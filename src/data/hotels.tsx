@@ -1,7 +1,6 @@
 import courtyard_marriott from "../photos/courtyard-marriott.jpg";
 import hyatt_place_atlanta_buckhead from "../photos/hyatt-place-atlanta-buckhead.webp";
 import intercontinental_buckhead_atlanta from "../photos/intercontinental-buckhead-atlanta.jpg";
-import the_lowes_hotel_front from "../photos/the-lowes-hotel-front.jpg";
 
 export interface Accommodation {
   name: string;
@@ -37,13 +36,5 @@ export const accommodations: Accommodation[] = [
     phone_number: "404-869-6161",
     address: "3242 Peachtree Rd NE, Atlanta, GA 30305",
     google_map_link: "https://goo.gl/maps/b8ug6yURusPy5Nmx8",
-  },
-  {
-    name: "The Lowes Hotel",
-    booking_url: "https://www.loewshotels.com/atlanta-hotel",
-    img_url: the_lowes_hotel_front,
-    phone_number: "855-680-1643",
-    address: "1065 Peachtree St NE, Atlanta, GA 30309",
-    google_map_link: "https://goo.gl/maps/Kz3MBWR1ueB41dMTA",
   },
 ];
