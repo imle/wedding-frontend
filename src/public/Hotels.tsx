@@ -11,6 +11,7 @@ import {CardActions} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Link from "@material-ui/core/Link";
+import CardMedia from "@material-ui/core/CardMedia";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -28,7 +29,7 @@ const styles = (theme: Theme) => createStyles({
     flexGrow: 1,
   },
   hidden_on_desktop: {
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       display: "none",
     },
   },
@@ -48,21 +49,14 @@ class Hotels extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      <Container className={classes.root} maxWidth="xl">
+      <Container className={classes.root} maxWidth="lg">
         <Grid container spacing={4} justify={"center"}>
           {accommodations.map((accommodation, i) => (
             <Grid key={accommodation.name} item xs={12} sm={i === 0 ? 12 : 6}>
               <Card className={classes.card}>
-                <Image
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    width: "auto",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                  url={accommodation.img_url}
-                  altText={"hotel"}
+                <CardMedia
+                  className={classes.card_media}
+                  image={accommodation.img_url}
                 />
                 <CardContent className={classes.card_content}>
                   <Typography gutterBottom variant="body1" component="h6">
