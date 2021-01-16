@@ -45,9 +45,9 @@ class RSVPByCode extends React.Component<Props, State> {
   }
 
   getInviteeFromCode = (code: string, callback?: () => void) => {
-    fetch(`//${window.location.hostname}:8080/apiv1/invitee/${encodeURIComponent(code)}`)
+    fetch(`//${window.location.hostname}/api/v1/invitees/${encodeURIComponent(code)}`)
       .then((response) => {
-        if (response.status === 404) throw response.status;
+        if (response.status !== 200) throw response.status;
 
         return response.json()
       })

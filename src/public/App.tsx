@@ -12,9 +12,10 @@ import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery";
-import {tileData, TileDataItem} from "./data";
+import {galleryImages, ImageTile} from "./data";
 import RSVPByCode from "./RSVPByCode";
 import RSVPSearch from "./RSVPSearch";
+import Hotels from "./Hotels";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -25,7 +26,7 @@ const styles = (theme: Theme) => createStyles({
   content: {
     flex: 1,
     flexGrow: 1,
-    overflow: "auto",
+    // overflow: "auto",
   },
   header: {},
   footer: {},
@@ -66,14 +67,14 @@ interface Props extends WithStyles<typeof styles>, RouteComponentProps {
 
 interface State {
   date_of_wedding: Date;
-  images: TileDataItem[];
+  images: ImageTile[];
   page: string;
 }
 
 class App extends React.Component<Props, State> {
   state: State = {
-    date_of_wedding: new Date(2023, 11, 25),
-    images: tileData,
+    date_of_wedding: new Date(2022, 4, 28, 18, 0),
+    images: galleryImages,
     page: ((): string => {
       const pathParts = this.props.history.location.pathname.substr(1).split("/");
       if (pathParts[0].length > 0) {
@@ -110,8 +111,8 @@ class App extends React.Component<Props, State> {
                 </Grid>
                 <Grid item xs={3}>
                   <Typography variant={"h6"} align={"right"}>
-                    <span>A Place Name<br/></span>
-                    <span>Somewhere, GA 30312<br/></span>
+                    <span>The Estate<br/></span>
+                    <span>Atlanta, GA 30305<br/></span>
                     <Countdown day={this.state.date_of_wedding}/>
                   </Typography>
                 </Grid>
@@ -132,7 +133,7 @@ class App extends React.Component<Props, State> {
         <Box className={classes.content}>
           <Switch>
             <Route path="/hotels" exact>
-              {/*<Hotels />*/}
+              <Hotels date_of_wedding={this.state.date_of_wedding}/>
             </Route>
             <Route path="/gallery" exact>
               <Gallery images={this.state.images}/>

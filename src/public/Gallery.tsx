@@ -13,7 +13,7 @@ import {Carousel} from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./Gallery.css";
 
-import {TileDataItem} from "./data";
+import {ImageTile} from "./data";
 import Hidden from "@material-ui/core/Hidden";
 
 const styles = (theme: Theme) => createStyles({
@@ -36,7 +36,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-  images: TileDataItem[];
+  images: ImageTile[];
 }
 
 interface State {
@@ -56,7 +56,7 @@ class Gallery extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      <div className={classes.root}>
+      <Container className={classes.root} maxWidth={"xl"}>
         <Hidden mdUp>
           <GridList cellHeight={160} cols={3}>
             {/*<GridList cellHeight={240} cols={2}>*/}
@@ -102,7 +102,7 @@ class Gallery extends React.Component<Props, State> {
             </Carousel>
           </Container>
         </Dialog>
-      </div>
+      </Container>
     );
   }
 }

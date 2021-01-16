@@ -53,8 +53,12 @@ class RSVPSearch extends React.Component<Props, State> {
   }
 
   searchForInviteeCode = (name: string) => {
-    fetch(`//${window.location.hostname}:8080/apiv1/invitee?query=${encodeURIComponent(name)}`)
-      .then((response) => response.json())
+    fetch(`//${window.location.hostname}/api/v1/invitees?query=${encodeURIComponent(name)}`)
+      .then((response) => {
+        if (response.status !== 200) throw response.status;
+
+        return response.json()
+      })
       .then((data: ErrorResponse | InviteeSearchResponse) => {
         if ("error" in data) throw data;
 
@@ -66,9 +70,22 @@ class RSVPSearch extends React.Component<Props, State> {
           searching: false,
         });
       })
-      .catch((reason: ErrorResponse) => {
+      .catch((reason: number | ErrorResponse) => {
+        let err: string;
+        if (typeof reason === "number") {
+          switch (reason) {
+            case 404:
+              err = "No guests match your search."
+              break;
+            default:
+              err = "Unknown error occurred."
+          }
+        } else {
+          err = reason.error;
+        }
+
         this.setState({
-          error: reason.error,
+          error: err,
           searching: false,
         });
       });

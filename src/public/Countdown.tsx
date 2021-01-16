@@ -1,10 +1,9 @@
 import React from "react";
+import {differenceInCalendarDays} from "date-fns";
 
 interface Props {
   day: Date;
 }
-
-const one_day = 1000 * 60 * 60 * 24;
 
 class Countdown extends React.Component<Props> {
   render() {
@@ -12,7 +11,7 @@ class Countdown extends React.Component<Props> {
 
     return (
       <React.Fragment>
-        {Math.ceil((this.props.day.getTime() - now.getTime()) / (one_day))} days to go!
+        {differenceInCalendarDays(this.props.day.getTime(), now.getTime())} days to go!
       </React.Fragment>
     );
   }

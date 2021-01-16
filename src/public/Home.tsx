@@ -1,10 +1,10 @@
 import React from "react";
+import {format} from "date-fns";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import {Image} from "@crystallize/react-image";
 import Typography from "@material-ui/core/Typography";
-import Hidden from "@material-ui/core/Hidden";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -16,21 +16,32 @@ import hero_small from "../photos/hero-small.jpg";
 import hero_large from "../photos/hero-large.jpg";
 import hero_original from "../photos/hero-original.jpg";
 
-import venue_small from "../photos/venue-small.jpg";
-import venue_large from "../photos/venue-large.jpg";
-import venue_original from "../photos/venue-original.jpg";
+import venue_large from "../photos/the-estate.jpg";
 
 const styles = (theme: Theme) => createStyles({
   root: {
     padding: 0,
   },
-  card_grid: {
-    [theme.breakpoints.up("md")]: {
-      paddingTop: theme.spacing(4),
+  hero: {
+    [theme.breakpoints.up("lg")]: {
+      maxHeight: "50vh",
     },
-    paddingBottom: theme.spacing(4),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
+    [theme.breakpoints.up("lg")]: {
+      maxHeight: "55vh",
+    },
+    maxHeight: "60vh",
+    overflow: "hidden",
+  },
+  hero_image: {
+    [theme.breakpoints.up("lg")]: {
+      marginTop: "-10vh",
+    },
+    [theme.breakpoints.up("lg")]: {
+      marginTop: "-5vh",
+    },
+  },
+  card_grid: {
+    padding: theme.spacing(4),
   },
   card: {
     height: "100%",
@@ -61,62 +72,53 @@ class Home extends React.Component<Props, State> {
     return (
       <Container className={classes.root} maxWidth="xl">
         <Grid container>
-          <Grid item sm={12} style={{maxHeight: "60vh", overflow: "hidden"}}>
-            <Image
-              style={{
-                maxWidth: "100%",
-                height: "auto",
-                width: "auto",
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-              url={hero_large}
-              variants={[
-                {url: hero_small, width: 427, height: 640},
-                {url: hero_large, width: 1920, height: 1281},
-                {url: hero_original, width: 6016, height: 4016},
-              ]}
-              altText={"hero"}
-            />
+          <Grid className={classes.hero} item sm={12}>
+            <Box className={classes.hero_image}>
+              <Image
+                style={{
+                  display: "block",
+                  maxWidth: "100%",
+                  height: "auto",
+                  width: "auto",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+                url={hero_large}
+                variants={[
+                  {url: hero_small, width: 427, height: 640},
+                  {url: hero_large, width: 1920, height: 1281},
+                  {url: hero_original, width: 6016, height: 4016},
+                ]}
+                altText={"hero"}
+              />
+            </Box>
           </Grid>
-          <Hidden mdUp>
-            <Grid item xs={12}>
-              <Box mt={2} mb={2}>
-                <Typography variant={"h6"} align={"center"}>
-                  <span>A Place Name<br/></span>
-                  <span>Somewhere, GA 30312<br/></span>
-                  <Countdown day={this.props.date_of_wedding}/>
-                </Typography>
-              </Box>
-            </Grid>
-          </Hidden>
           <Grid item xs={12}>
             <Container className={classes.card_grid} maxWidth="xl">
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={6}>
                   <Card className={classes.card}>
-                      <Image
-                        style={{
-                          maxWidth: "100%",
-                          height: "auto",
-                          width: "auto",
-                          marginLeft: "auto",
-                          marginRight: "auto",
-                        }}
-                        url={venue_large}
-                        variants={[
-                          {url: venue_small, width: 640, height: 426},
-                          {url: venue_large, width: 1280, height: 853},
-                          // {url: venue_original, width: 5184, height: 3456},
-                        ]}
-                        altText={"venue"}
-                      />
+                    <Image
+                      style={{
+                        maxWidth: "100%",
+                        height: "auto",
+                        width: "auto",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      }}
+                      url={venue_large}
+                      variants={[
+                        {url: venue_large, width: 960, height: 540},
+                      ]}
+                      altText={"venue"}
+                    />
                     <CardContent className={classes.card_content}>
                       <Typography gutterBottom variant="h5" component="h2">
                         Where
                       </Typography>
-                      <Typography variant={"body1"}>
-                        Our wedding will be head at the Grand Ultra Mega Super Hotel in downtown Hotlanta.
+                      <Typography variant={"h6"} align={"center"}>
+                        <span>The Estate<br/></span>
+                        <span>Atlanta, GA 30305<br/></span>
                       </Typography>
                     </CardContent>
                   </Card>
@@ -132,9 +134,10 @@ class Home extends React.Component<Props, State> {
                       <Typography gutterBottom variant="h5" component="h2">
                         When
                       </Typography>
-                      <Typography>
-                        Saturday, April 17, 2021<br/>
-                        4:00 PM
+                      <Typography variant={"h6"} align={"center"}>
+                        {format(this.props.date_of_wedding, "iiii, MMMM dd, yyyy")} @ {format(this.props.date_of_wedding, "h:mm a")}
+                        <br/>
+                        <Countdown day={this.props.date_of_wedding}/>
                       </Typography>
                     </CardContent>
                   </Card>

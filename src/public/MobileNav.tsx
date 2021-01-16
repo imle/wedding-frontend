@@ -31,11 +31,11 @@ class MobileNav extends React.Component<Props, State> {
         onChange={(event, value) => this.props.setPage(value)}
         showLabels
       >
-        <BottomNavigationAction label="Home" icon={<HomeIcon/>} component={RouterLink} to={"/"}/>
-        <BottomNavigationAction label="Hotels" icon={<HotelIcon/>} component={RouterLink} to={"/hotels"}/>
-        <BottomNavigationAction label="Gallery" icon={<ImagesIcon/>} component={RouterLink} to={"/gallery"}/>
-        <BottomNavigationAction label="Registry" icon={<RegistryIcon/>} component={RouterLink} to={"/registry"}/>
-        <BottomNavigationAction label="RSVP" icon={<RSVPIcon/>} component={RouterLink} to={"/rsvp"}/>
+        <BottomNavigationAction value={"home"} label="Home" icon={<HomeIcon/>} component={RouterLink} to={"/"}/>
+        <BottomNavigationAction value={"hotels"} label="Hotels" icon={<HotelIcon/>} component={RouterLink} to={"/hotels"}/>
+        <BottomNavigationAction value={"gallery"} label="Gallery" icon={<ImagesIcon/>} component={RouterLink} to={"/gallery"}/>
+        <BottomNavigationAction value={"registry"} label="Registry" icon={<RegistryIcon/>} component={RouterLink} to={"/registry"}/>
+        <BottomNavigationAction value={"rsvp"} label="RSVP" icon={<RSVPIcon/>} component={RouterLink} to={"/rsvp"}/>
       </BottomNavigation>
     );
   }
