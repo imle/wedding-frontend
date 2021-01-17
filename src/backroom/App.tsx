@@ -1,6 +1,9 @@
 import React from "react";
 import {Route, RouteComponentProps} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
+import Logout from "./Logout";
+import {withAuthUser} from "react-auth-kit";
+import {BackroomUser} from "../types/backroom-user";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -23,10 +26,8 @@ const styles = (theme: Theme) => createStyles({
   },
 });
 
-interface RouteData {
-}
-
 interface Props extends WithStyles<typeof styles>, RouteComponentProps {
+  authState: BackroomUser;
 }
 
 interface State {
@@ -40,14 +41,12 @@ class App extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      <Route
-        path={["/rsvp/:rsvp_code", "*"]}
-        render={(match: RouteComponentProps<RouteData>) => (
-          <React.Fragment>
-          </React.Fragment>
-        )}/>
+      <React.Fragment>
+        <Route path="/" component={Logout}/>
+        {this.props.authState?.username}
+      </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles, {withTheme: true})(App);
+export default withStyles(styles, {withTheme: true})(withAuthUser(App));
