@@ -69,7 +69,7 @@ class Login extends React.Component<Props, State> {
             onSubmit={(e) => {
               e.preventDefault();
 
-              fetch(`//${APIHost}/login`, {
+              fetch(`//${APIHost}//api/login`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
