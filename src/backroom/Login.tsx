@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FormEvent} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -17,7 +17,7 @@ import {BackroomUser} from "../types/backroom-user";
 
 const styles = (theme: Theme) => createStyles({
   paper: {
-    marginTop: theme.spacing(8),
+    paddingTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -51,6 +51,36 @@ class Login extends React.Component<Props, State> {
     password: "",
   };
 
+  login() {
+    fetch(`//${APIHost}/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: this.state.password,
+        username: this.state.username,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        const success = this.props.signIn({
+          token: data.token,
+          expiresIn: differenceInMinutes(parseISO(data.expire), Date.now()),
+          tokenType: "Bearer",
+          authState: data.user as BackroomUser,
+        });
+
+        if (success) {
+          this.props.history.push("/backroom");
+        } else {
+          this.setState({
+            error: "Unable to login.",
+          })
+        }
+      });
+  }
+
   render() {
     const {classes} = this.props;
 
@@ -69,35 +99,7 @@ class Login extends React.Component<Props, State> {
             onSubmit={(e) => {
               e.preventDefault();
 
-              fetch(`//${APIHost}/api/login`, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  password: this.state.password,
-                  username: this.state.username,
-                }),
-              })
-                .then(response => response.json())
-                .then(data => {
-                  console.log(data);
-
-                  const success = this.props.signIn({
-                    token: data.token,
-                    expiresIn: differenceInMinutes(parseISO(data.expire), Date.now()),
-                    tokenType: "Bearer",
-                    authState: data.user as BackroomUser,
-                  });
-
-                  if (success) {
-                    this.props.history.push(`/backroom`);
-                  } else {
-                    this.setState({
-                      error: "Unable to login.",
-                    })
-                  }
-                });
+              this.login();
             }}
             >
             <TextField
@@ -125,10 +127,6 @@ class Login extends React.Component<Props, State> {
               autoComplete="current-password"
               value={this.state.password}
               onChange={(e) => this.setState({password: e.target.value})}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"

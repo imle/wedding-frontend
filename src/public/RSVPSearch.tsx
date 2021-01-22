@@ -49,8 +49,6 @@ class RSVPSearch extends React.Component<Props, State> {
   }
 
   searchForInviteeCode = (name: string) => {
-    console.log(process.env);
-
     fetch(`//${APIHost}/api/v1/invitees?query=${encodeURIComponent(name)}`)
       .then((response) => {
         if (response.status !== 200) throw response.status;
@@ -147,7 +145,7 @@ class RSVPSearch extends React.Component<Props, State> {
                       key={match.code}
                       value={match.code}
                       control={<Radio/>}
-                      label={match.edges.Invitees.map((i) => i.name).join(", ")}/>
+                      label={match.edges.Invitees!.map((i) => i.name).join(", ")}/>
                   ))}
                 </RadioGroup>
               </FormControl>

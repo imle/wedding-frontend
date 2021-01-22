@@ -156,11 +156,9 @@ class RSVPByCode extends React.Component<Props, State> {
           <Grid item xs={12}>
             <Card>
               <Typography align={"center"}>
-                {this.state.party.edges.Invitees
-                  .map((related, i) => (
-                    <React.Fragment key={i}>Name: {related.name}<br/></React.Fragment>
-                  ))
-                }
+                {this.state.party.edges.Invitees!.map((related, i) => (
+                  <React.Fragment key={i}>Name: {related.name}<br/></React.Fragment>
+                ))}
               </Typography>
             </Card>
           </Grid>

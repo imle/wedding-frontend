@@ -6,5 +6,3 @@ export const APIHost = ((): string => {
     return window.location.hostname;
   }
 })();
-
-console.log(APIHost);

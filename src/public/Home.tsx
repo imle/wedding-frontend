@@ -17,6 +17,7 @@ import hero_large from "../photos/hero-large.jpg";
 import hero_original from "../photos/hero-original.jpg";
 
 import venue_large from "../photos/the-estate.jpg";
+import piedmont_park from "../photos/piedmont-park-atlanta.jpg";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -131,10 +132,19 @@ class Home extends React.Component<Props, State> {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Card className={classes.card}>
-                    <CardMedia
-                      className={classes.card_media}
-                      title="Image title"
-                      image="https://source.unsplash.com/random"
+                    <Image
+                      style={{
+                        maxWidth: "100%",
+                        height: "auto",
+                        width: "auto",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      }}
+                      url={piedmont_park}
+                      variants={[
+                        {url: piedmont_park, width: 3008, height: 1692},
+                      ]}
+                      altText={"season"}
                     />
                     <CardContent className={classes.card_content}>
                       <Grid container>

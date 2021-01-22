@@ -2,11 +2,10 @@ import React from "react";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import App from "./public/App";
-import BackroomApp from "./backroom/App";
-import BackroomLogin from "./backroom/Login";
+import PublicApp from "./public/App";
+import BackroomOuterApp from "./backroom/OuterApp";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {AuthProvider, PrivateRoute} from "react-auth-kit";
+import {AuthProvider} from "react-auth-kit";
 
 
 export default function OuterApp() {
@@ -16,7 +15,7 @@ export default function OuterApp() {
     () =>
       createMuiTheme({
         palette: {
-          type: (prefersDarkMode && false) ? "dark" : "light",
+          type: (prefersDarkMode && true) ? "dark" : "light",
         },
         typography: {
           fontFamily: `"Handlee"`,
@@ -29,19 +28,16 @@ export default function OuterApp() {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <AuthProvider
-        authStorageType={"cookie"}
-        authStorageName={"_auth_t"}
-        authTimeStorageName={"_auth_time"}
-        stateStorageName={"_auth_state"}
-        cookieDomain={window.location.hostname}
-        cookieSecure={window.location.protocol === "https:"}
-        refreshTokenName={"_refresh_t"}
+        authStorageType="localstorage"
+        authStorageName="_auth_t"
+        authTimeStorageName="_auth_time"
+        stateStorageName="_auth_state"
+        refreshTokenName="_refresh_t"
       >
         <Router>
           <Switch>
-            <Route path="/backroom/login" component={BackroomLogin}/>
-            <PrivateRoute path="/backroom" loginPath="/backroom/login" component={BackroomApp}/>
-            <Route component={App}/>
+            <Route path="/backroom" component={BackroomOuterApp}/>
+            <Route component={PublicApp}/>
           </Switch>
         </Router>
       </AuthProvider>
