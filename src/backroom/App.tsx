@@ -21,6 +21,8 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import Dashboard from "./Deashboard";
 import GuestList from "./GuestList";
+import {APIHost} from "../data/api";
+import {ErrorResponse} from "../types/responses";
 
 const drawerWidth = 240;
 
@@ -98,6 +100,10 @@ class App extends React.Component<Props, State> {
     open: true,
   };
 
+  componentDidMount() {
+    console.log("maybe");
+  }
+
   handleDrawerOpen = () => {
     this.setState({
       open: true,
@@ -109,6 +115,28 @@ class App extends React.Component<Props, State> {
       open: false,
     });
   };
+
+  private logout = () => {
+    fetch(`//${APIHost}/api/logout`)
+      .then((response) => {
+        if (response.status !== 200) throw response.status;
+      })
+      .catch((reason: number | ErrorResponse) => {
+        let err: string;
+        if (typeof reason === "number") {
+          switch (reason) {
+            default:
+              err = "Unknown error occurred."
+          }
+        } else {
+          err = reason.error;
+        }
+
+        console.error(err);
+      });
+
+    this.props.signOut();
+  }
 
   render() {
     const {classes} = this.props;
@@ -134,7 +162,7 @@ class App extends React.Component<Props, State> {
             <Typography className={classes.title} variant="h6" noWrap>
               Persistent drawer
             </Typography>
-            <Button variant="contained" onClick={() => this.props.signOut()}>Sign Out</Button>
+            <Button variant="contained" onClick={this.logout}>Sign Out</Button>
           </Toolbar>
         </AppBar>
         <Drawer

@@ -33,7 +33,7 @@ class DesktopNav extends React.Component<Props, State> {
           centered
         >
           <Tab className={classes.tab} label="Home" value={"home"} component={RouterLink} to={"/"}/>
-          <Tab className={classes.tab} label="Hotels" value={"hotels"} component={RouterLink} to={"/hotels"}/>
+          <Tab className={classes.tab} label="Travel" value={"travel"} component={RouterLink} to={"/travel"}/>
           <Tab className={classes.tab} label="Gallery" value={"gallery"} component={RouterLink} to={"/gallery"}/>
           <Tab className={classes.tab} label="Registry" value={"registry"} component={RouterLink} to={"/registry"}/>
           <Tab className={classes.tab} label="RSVP" value={"rsvp"} component={RouterLink} to={"/rsvp"}/>

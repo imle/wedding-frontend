@@ -1,11 +1,12 @@
 import React from "react";
+import {AuthProvider} from "react-auth-kit";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import blue from "@material-ui/core/colors/blue";
 import PublicApp from "./public/App";
 import BackroomOuterApp from "./backroom/OuterApp";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {AuthProvider} from "react-auth-kit";
 
 
 export default function OuterApp() {
@@ -15,7 +16,10 @@ export default function OuterApp() {
     () =>
       createMuiTheme({
         palette: {
-          type: (prefersDarkMode && true) ? "dark" : "light",
+          type: (prefersDarkMode) ? "dark" : "light",
+          primary: {
+            main: (prefersDarkMode) ? blue["200"] : blue["700"],
+          },
         },
         typography: {
           fontFamily: `"Handlee"`,

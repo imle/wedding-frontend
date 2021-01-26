@@ -31,11 +31,11 @@ class MobileNav extends React.Component<Props, State> {
         onChange={(event, value) => this.props.setPage(value)}
         showLabels
       >
-        <BottomNavigationAction value={"home"} label="Home" icon={<HomeIcon/>} component={RouterLink} to={"/"}/>
-        <BottomNavigationAction value={"hotels"} label="Hotels" icon={<HotelIcon/>} component={RouterLink} to={"/hotels"}/>
-        <BottomNavigationAction value={"gallery"} label="Gallery" icon={<ImagesIcon/>} component={RouterLink} to={"/gallery"}/>
-        <BottomNavigationAction value={"registry"} label="Registry" icon={<RegistryIcon/>} component={RouterLink} to={"/registry"}/>
-        <BottomNavigationAction value={"rsvp"} label="RSVP" icon={<RSVPIcon/>} component={RouterLink} to={"/rsvp"}/>
+        <BottomNavigationAction label="Home" value="home" icon={<HomeIcon/>} component={RouterLink} to={"/"}/>
+        <BottomNavigationAction label="Travel" value="travel" icon={<HotelIcon/>} component={RouterLink} to={"/travel"}/>
+        <BottomNavigationAction label="Gallery" value="gallery" icon={<ImagesIcon/>} component={RouterLink} to={"/gallery"}/>
+        <BottomNavigationAction label="Registry" value="registry" icon={<RegistryIcon/>} component={RouterLink} to={"/registry"}/>
+        <BottomNavigationAction label="RSVP" value="rsvp" icon={<RSVPIcon/>} component={RouterLink} to={"/rsvp"}/>
       </BottomNavigation>
     );
   }

@@ -42,7 +42,7 @@ interface Props extends WithStyles<typeof styles> {
 interface State {
 }
 
-class Hotels extends React.Component<Props, State> {
+class Travel extends React.Component<Props, State> {
   state: State = {};
 
   render() {
@@ -67,7 +67,7 @@ class Hotels extends React.Component<Props, State> {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <ButtonGroup variant="text" color="primary" fullWidth>
+                  <ButtonGroup variant="text" fullWidth>
                     <Button component={Link} target="_blank" href={accommodation.booking_url}>Book</Button>
                     <Button className={classes.hidden_on_desktop} href={`tel:${accommodation.phone_number}`}>Call</Button>
                     <Button component={Link} target="_blank" href={accommodation.google_map_link}>Map</Button>
@@ -82,4 +82,4 @@ class Hotels extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(Hotels);
+export default withStyles(styles, {withTheme: true})(Travel);

@@ -15,7 +15,7 @@ import Gallery from "./Gallery";
 import {galleryImages} from "../data/gallery";
 import RSVPByCode from "./RSVPByCode";
 import RSVPSearch from "./RSVPSearch";
-import Hotels from "./Hotels";
+import Travel from "./Hotels";
 import {ReactImageGalleryItem} from "react-image-gallery";
 
 const styles = (theme: Theme) => createStyles({
@@ -133,8 +133,8 @@ class App extends React.Component<Props, State> {
         </Box>
         <Box className={classes.content}>
           <Switch>
-            <Route path="/hotels" exact>
-              <Hotels date_of_wedding={this.state.date_of_wedding}/>
+            <Route path="/travel" exact>
+              <Travel date_of_wedding={this.state.date_of_wedding}/>
             </Route>
             <Route path="/gallery" exact>
               <Gallery images={this.state.images}/>
