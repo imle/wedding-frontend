@@ -32,7 +32,7 @@ import {
   UseUpdateTableOptions,
 } from 'react-table';
 
-import {camelToWords, useDebounce, useLocalStorage} from '../utils'
+import {camelToWords, useDebounce, useLocalStorage} from './utils'
 import {FilterChipBar} from './FilterChipBar'
 import {fuzzyTextFilter, numericTextFilter} from './filters'
 import {TablePagination} from './TablePagination'
@@ -40,6 +40,7 @@ import {HeaderCheckbox, RowCheckbox, useStyles} from './TableStyles'
 import {TableToolbar} from './TableToolbar'
 import {TooltipCell} from './TooltipCell'
 import Paper from "@material-ui/core/Paper";
+import Box from '@material-ui/core/Box';
 
 export interface TableProperties<T extends Record<string, unknown>> extends TableOptions<T> {
   name: string
@@ -195,7 +196,7 @@ export function Table<T extends Record<string, unknown>>(props: TableProps<T>): 
   }
 
   return (
-    <>
+    <Box overflow={"auto"}>
       <TableToolbar instance={instance} {...{onAdd, onDelete, onEdit}} />
       <FilterChipBar<T> instance={instance}/>
       <MUITableContainer component={Paper}>
@@ -275,6 +276,6 @@ export function Table<T extends Record<string, unknown>>(props: TableProps<T>): 
         </MUITable>
         <TablePagination<T> instance={instance}/>
       </MUITableContainer>
-    </>
+    </Box>
   )
 }

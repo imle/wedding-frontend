@@ -17,3 +17,7 @@ export interface LoginResponse {
   user: BackroomUser;
   timeout: number;
 }
+
+export interface AllInviteesResponse {
+  parties: Party[];
+}

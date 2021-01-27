@@ -3,7 +3,7 @@ import type {CellProps, UseUpdateTableOptions} from "react-table";
 import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 
-import {Invitee} from "../../../types/invitee";
+import {Invitee} from "../../types/invitee";
 
 export interface EditableTextCellProps<D extends Record<string, unknown>, V = any>
   extends CellProps<D, V>,

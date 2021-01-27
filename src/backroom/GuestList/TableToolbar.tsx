@@ -8,7 +8,7 @@ import classnames from 'classnames'
 import React, { MouseEvent, MouseEventHandler, PropsWithChildren, ReactElement, useCallback, useState } from 'react'
 import { TableInstance } from 'react-table'
 
-import { TableMouseEventHandler } from '../../../types/react-table-config'
+import { TableMouseEventHandler } from '../../types/react-table-config'
 import { ColumnHidePage } from './ColumnHidePage'
 import { FilterPage } from './FilterPage'
 
