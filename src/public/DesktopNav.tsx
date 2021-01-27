@@ -7,7 +7,7 @@ import {Link as RouterLink} from "react-router-dom";
 
 const styles = (theme: Theme) => createStyles({
   tab: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       minWidth: 100,
     },
   },

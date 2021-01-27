@@ -100,10 +100,6 @@ class App extends React.Component<Props, State> {
     open: true,
   };
 
-  componentDidMount() {
-    console.log("maybe");
-  }
-
   handleDrawerOpen = () => {
     this.setState({
       open: true,

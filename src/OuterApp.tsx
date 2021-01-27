@@ -7,6 +7,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import blue from "@material-ui/core/colors/blue";
 import PublicApp from "./public/App";
 import BackroomOuterApp from "./backroom/OuterApp";
+import StyledEngineProvider from "@material-ui/core/StyledEngineProvider";
 
 
 export default function OuterApp() {
@@ -16,7 +17,7 @@ export default function OuterApp() {
     () =>
       createMuiTheme({
         palette: {
-          type: (prefersDarkMode) ? "dark" : "light",
+          mode: (prefersDarkMode) ? "dark" : "light",
           primary: {
             main: (prefersDarkMode) ? blue["200"] : blue["700"],
           },
@@ -30,21 +31,23 @@ export default function OuterApp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
-      <AuthProvider
-        authStorageType="localstorage"
-        authStorageName="_auth_t"
-        authTimeStorageName="_auth_time"
-        stateStorageName="_auth_state"
-        refreshTokenName="_refresh_t"
-      >
-        <Router>
-          <Switch>
-            <Route path="/backroom" component={BackroomOuterApp}/>
-            <Route component={PublicApp}/>
-          </Switch>
-        </Router>
-      </AuthProvider>
+      <StyledEngineProvider injectFirst>
+        <CssBaseline/>
+        <AuthProvider
+          authStorageType="localstorage"
+          authStorageName="_auth_t"
+          authTimeStorageName="_auth_time"
+          stateStorageName="_auth_state"
+          refreshTokenName="_refresh_t"
+        >
+          <Router>
+            <Switch>
+              <Route path="/backroom" component={BackroomOuterApp}/>
+              <Route component={PublicApp}/>
+            </Switch>
+          </Router>
+        </AuthProvider>
+      </StyledEngineProvider>
     </ThemeProvider>
   );
 }

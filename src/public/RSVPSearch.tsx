@@ -49,7 +49,7 @@ class RSVPSearch extends React.Component<Props, State> {
   }
 
   searchForInviteeCode = (name: string) => {
-    fetch(`//${APIHost}/api/v1/invitees?query=${encodeURIComponent(name)}`)
+    fetch(`${APIHost}/api/v1/invitees?query=${encodeURIComponent(name)}`)
       .then((response) => {
         if (response.status !== 200) throw response.status;
 
@@ -127,7 +127,7 @@ class RSVPSearch extends React.Component<Props, State> {
             }}
             container
             direction="row"
-            justify="center"
+            justifyItems="center"
             alignItems="center"
             spacing={0}
 
@@ -178,12 +178,12 @@ class RSVPSearch extends React.Component<Props, State> {
           style={{height: "100%"}}
           container
           direction="row"
-          justify="center"
+          justifyItems="center"
           alignItems="center"
         >
           <Grid
-            item xs={12}
-
+            item
+            xs={12}
             component="form"
             noValidate
             autoComplete="off"

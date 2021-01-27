@@ -31,9 +31,9 @@ export const EditableTextCell = (props: EditableTextCellProps<Invitee>) => {
       inputProps={{
         style: {padding: 2},
       }}
-      value={value}
-      placeholder={"<null>"}
       style={style}
+      placeholder={"<null>"}
+      value={value || ""}
       onChange={(e) => setValue(e.target.value)}
       onBlur={() => props.updateData(props.row.index, props.column.id, value)}
     />

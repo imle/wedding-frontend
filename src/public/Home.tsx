@@ -7,10 +7,7 @@ import {Image} from "@crystallize/react-image";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-
-import Countdown from "./Countdown";
 
 import hero_small from "../photos/hero-small.jpg";
 import hero_large from "../photos/hero-large.jpg";
@@ -71,7 +68,7 @@ class Home extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      <Container className={classes.root} maxWidth="xl">
+      // <Container className={classes.root} maxWidth="xl">
         <Grid container>
           <Grid className={classes.hero} item sm={12}>
             <Box className={classes.hero_image}>
@@ -168,7 +165,7 @@ class Home extends React.Component<Props, State> {
             </Container>
           </Grid>
         </Grid>
-      </Container>
+      // </Container>
     );
   }
 }

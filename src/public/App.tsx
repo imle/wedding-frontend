@@ -1,5 +1,6 @@
 import React from "react";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router-dom";
+import {ReactImageGalleryItem} from "react-image-gallery";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -16,37 +17,47 @@ import {galleryImages} from "../data/gallery";
 import RSVPByCode from "./RSVPByCode";
 import RSVPSearch from "./RSVPSearch";
 import Travel from "./Hotels";
-import {ReactImageGalleryItem} from "react-image-gallery";
+import styled from "@emotion/styled";
+
+const Root = styled(Box)`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Content = styled(Box)`
+  flex: 1;
+`;
+
+const Header = styled(Box)`
+  flex: 0;
+`;
+
+const Footer = styled(Box)`
+  flex: 0;
+`;
+
+const Title = styled(Typography)`
+  font-family: "Mrs Saint Delafield", cursive;
+  user-select: none;
+`;
+
+const TitleLarge = styled(Title)`
+  font-size: 7em;
+`;
+
+const TitleSmall = styled(Title)`
+  font-size: 12vw;
+`;
+
+const MobileNavContainer = styled(Title)`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
 
 const styles = (theme: Theme) => createStyles({
-  root: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  content: {
-    flex: 1,
-    flexGrow: 1,
-    // overflow: "auto",
-  },
-  header: {},
-  footer: {},
-  title: {
-    marginTop: theme.spacing(3),
-    // fontFamily: `cursive`,
-    fontFamily: `"Mrs Saint Delafield", cursive`,
-    // fontFamily: `"Alex Brush", cursive`,
-    // fontFamily: `"Shadows Into Light Two", cursive`,
-    // fontFamily: `"Reenie Beanie", cursive`,
-    // fontFamily: `"Arizonia", cursive`,
-    userSelect: "none",
-    [theme.breakpoints.up("sm")]: {
-      fontSize: "7.6em",
-    },
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "12vw",
-    },
-  },
   title_space: {
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
@@ -54,12 +65,6 @@ const styles = (theme: Theme) => createStyles({
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
     },
-  },
-  mobile_nav: {
-    position: "fixed",
-    bottom: 0,
-    left: 0,
-    right: 0,
   },
 });
 
@@ -100,15 +105,15 @@ class App extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      <Box className={classes.root} maxWidth={"xl"}>
-        <Box className={classes.header}>
+      <Root maxWidth={"xl"}>
+        <Header>
           <Grid item xs={12}>
-            <Hidden smDown>
-              <Grid container alignItems={"center"} className={classes.title_space}>
-                <Grid item xs={9}>
-                  <Typography className={classes.title} variant="h1" component="h2">
+            <Hidden mdDown>
+              <Grid className={classes.title_space} container alignItems={"center"}>
+                <Grid item xs={9} marginTop={3}>
+                  <TitleLarge variant="h2">
                     Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
-                  </Typography>
+                  </TitleLarge>
                 </Grid>
                 <Grid item xs={3}>
                   <Typography variant={"h6"} align={"right"}>
@@ -120,9 +125,11 @@ class App extends React.Component<Props, State> {
               </Grid>
             </Hidden>
             <Hidden mdUp>
-              <Typography className={classes.title} variant="h1" component="h2" align={"center"}>
-                Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
-              </Typography>
+              <Box marginTop={3}>
+                <TitleSmall variant="h2" align={"center"}>
+                  Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
+                </TitleSmall>
+              </Box>
             </Hidden>
           </Grid>
           <Hidden xsDown>
@@ -130,8 +137,8 @@ class App extends React.Component<Props, State> {
               <DesktopNav page={this.state.page} setPage={this.setPage}/>
             </Grid>
           </Hidden>
-        </Box>
-        <Box className={classes.content}>
+        </Header>
+        <Content>
           <Switch>
             <Route path="/travel" exact>
               <Travel date_of_wedding={this.state.date_of_wedding}/>
@@ -155,18 +162,18 @@ class App extends React.Component<Props, State> {
               <Redirect to={{pathname: "/"}}/>
             </Route>
           </Switch>
-        </Box>
-        <Box className={classes.footer}>
+        </Content>
+        <Footer>
           <Hidden smUp>
             <Box>
               <BottomNavigation/>
             </Box>
-            <Box className={classes.mobile_nav}>
+            <MobileNavContainer>
               <MobileNav page={this.state.page} setPage={this.setPage}/>
-            </Box>
+            </MobileNavContainer>
           </Hidden>
-        </Box>
-      </Box>
+        </Footer>
+      </Root>
     );
   }
 }

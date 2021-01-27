@@ -46,7 +46,7 @@ class RSVPByCode extends React.Component<Props, State> {
   }
 
   getInviteeFromCode = (code: string) => {
-    fetch(`//${APIHost}/api/v1/invitees/${encodeURIComponent(code)}`)
+    fetch(`${APIHost}/api/v1/invitees/${encodeURIComponent(code)}`)
       .then((response) => {
         if (response.status !== 200) throw response.status;
 
@@ -96,7 +96,7 @@ class RSVPByCode extends React.Component<Props, State> {
             }}
             container
             direction="row"
-            justify="center"
+            justifyItems="center"
             alignItems="center"
             spacing={0}
           >
@@ -149,7 +149,7 @@ class RSVPByCode extends React.Component<Props, State> {
           }}
           container
           direction="row"
-          justify="center"
+          justifyItems="center"
           alignItems="center"
           spacing={0}
         >
