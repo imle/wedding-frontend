@@ -9,7 +9,7 @@ import {Card, CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Link as RouterLink} from "react-router-dom";
 import Box from "@material-ui/core/Box";
-import {APIHost} from "../data/api";
+import {APIHost} from "../data/axios";
 
 const styles = (theme: Theme) => createStyles({
   root: {

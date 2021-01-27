@@ -1,45 +1,46 @@
-import React from 'react';
-import type {Column, IdType} from 'react-table';
+import React from "react";
+import type {Column, IdType} from "react-table";
+import {withSignOut} from "react-auth-kit";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import {Table} from './GuestList/Table';
-import {makeData} from './GuestList/utils';
+import axios from "../data/axios";
+import {Table} from "./GuestList/Table";
 import {Invitee} from "../types/invitee";
 import {EditableCheckboxCell, EditableTextCell} from "./GuestList/EditableCell";
-import {APIHost} from "../data/api";
 import {ErrorResponse, AllInviteesResponse} from "../types/responses";
+import Typography from "@material-ui/core/Typography";
 
 const columns: Column<Invitee>[] = [
   {
-    Header: 'Name',
-    accessor: 'name',
-    aggregate: 'count',
+    Header: "Name",
+    accessor: "name",
+    aggregate: "count",
     minWidth: 50,
     Cell: EditableTextCell,
   },
   {
-    Header: 'Group Name',
+    Header: "Group Name",
     accessor: (d) => d.edges.Party?.name,
-    aggregate: 'uniqueCount',
-    filter: 'fuzzyText',
+    aggregate: "uniqueCount",
+    filter: "fuzzyText",
     minWidth: 50,
     Cell: EditableTextCell,
   },
   {
-    Header: 'Plus One',
-    accessor: (d) => d.plus_one_name || "",
+    Header: "Plus One",
+    accessor: (d) => d.plus_one_name || null,
     minWidth: 50,
     Cell: EditableTextCell,
   },
   {
-    Header: 'Email',
-    accessor: 'email',
+    Header: "Email",
+    accessor: "email",
     minWidth: 50,
     Cell: EditableTextCell,
   },
   {
-    Header: 'RSVP',
-    accessor: "rsvp_response",
+    Header: "RSVP",
+    accessor: (d) => d.rsvp_response || false,
     width: 80,
     minWidth: 80,
     align: "right",
@@ -48,7 +49,7 @@ const columns: Column<Invitee>[] = [
 ];
 
 interface Props {
-
+  signOut(): boolean;
 }
 
 interface State {
@@ -57,7 +58,7 @@ interface State {
   error?: string;
 }
 
-export default class App extends React.Component<Props, State> {
+class App extends React.Component<Props, State> {
   state: State = {
     invitees: [],
     loading: false,
@@ -72,18 +73,32 @@ export default class App extends React.Component<Props, State> {
   }
 
   getInvitees = () => {
-    fetch(`//${APIHost}/api/admin/v1/invitees/`)
+    axios.get<ErrorResponse | AllInviteesResponse>("/api/admin/v1/parties")
       .then((response) => {
-        if (response.status !== 200) throw response.status;
+        let err: string | null = null;
+        if (response.status !== 200) {
+          switch (response.status) {
+            case 403:
+              this.props.signOut();
+              err = "Not authorized."
+              break;
+            default:
+              err = "Unknown error occurred."
+          }
+        } else if ("error" in response.data) {
+          err = response.data.error;
+        }
 
-        return response.json()
-      })
-      .then((data: ErrorResponse | AllInviteesResponse) => {
-        if ("error" in data) throw data;
+        if (err !== null) {
+          this.setState({
+            loading: false,
+            error: err,
+          });
+          return;
+        }
 
-        return data;
-      })
-      .then((data: AllInviteesResponse) => {
+        const data = response.data as AllInviteesResponse;
+
         let invitees: Invitee[] = [];
         data.parties.forEach((p) => p.edges.Invitees?.forEach((i) => {
           i.edges.Party = p;
@@ -95,22 +110,11 @@ export default class App extends React.Component<Props, State> {
           loading: false,
         });
       })
-      .catch((reason: number | ErrorResponse) => {
-        let err: string;
-        if (typeof reason === "number") {
-          switch (reason) {
-            case 404:
-              err = "No guests found with that code."
-              break;
-            default:
-              err = "Unknown error occurred."
-          }
-        } else {
-          err = reason.error;
-        }
+      .catch((reason) => {
+        console.error(reason);
 
         this.setState({
-          error: err,
+          error: reason,
           loading: false,
         });
       });
@@ -125,7 +129,7 @@ export default class App extends React.Component<Props, State> {
 
     return (
       <Table<Invitee>
-        name={'guest-list'}
+        name={"guest-list"}
         columns={columns}
         data={this.state.invitees}
         onAdd={() => () => null}
@@ -148,3 +152,5 @@ export default class App extends React.Component<Props, State> {
     );
   }
 }
+
+export default withSignOut(App);

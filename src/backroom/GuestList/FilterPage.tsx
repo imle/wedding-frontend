@@ -38,10 +38,10 @@ const useStyles = makeStyles(
 )
 
 type FilterPageProps<T extends Record<string, unknown>> = {
-  instance: TableInstance<T>
-  anchorEl?: Element
-  onClose: () => void
-  show: boolean
+  instance: TableInstance<T>;
+  anchorEl?: Element;
+  onClose(): void;
+  show: boolean;
 }
 
 export function FilterPage<T extends Record<string, unknown>>({

@@ -25,10 +25,10 @@ const useStyles = makeStyles(
 )
 
 type ColumnHidePageProps<T extends Record<string, unknown>> = {
-  instance: TableInstance<T>
-  anchorEl?: Element
-  onClose: () => void
-  show: boolean
+  instance: TableInstance<T>;
+  anchorEl?: Element;
+  onClose(): void;
+  show: boolean;
 }
 
 const id = 'popover-column-hide'

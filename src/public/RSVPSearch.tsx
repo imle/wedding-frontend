@@ -14,7 +14,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
-import {APIHost} from "../data/api";
+import {APIHost} from "../data/axios";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -23,7 +23,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 interface Props extends WithStyles<typeof styles> {
-  setRsvpCode: (code: string) => void;
+  setRsvpCode(code: string): void;
 }
 
 interface State {

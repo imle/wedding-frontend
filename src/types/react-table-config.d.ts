@@ -47,7 +47,7 @@ import {
 
 declare module 'react-table' {
   export interface UseUpdateTableOptions<D extends Record<string, unknown>> {
-    updateData: (rowIndex: number, columnId: IdType<D>, value: any) => void;
+    updateData(rowIndex: number, columnId: IdType<D>, value: any): void;
   }
 
   export interface UseFlexLayoutInstanceProps<D extends Record<string, unknown>> {

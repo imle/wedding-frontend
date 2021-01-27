@@ -41,7 +41,7 @@ type InstanceActionButton<T extends Record<string, unknown>> = {
   instance: TableInstance<T>
   icon?: JSX.Element
   onClick: TableMouseEventHandler
-  enabled?: (instance: TableInstance<T>) => boolean
+  enabled?(instance: TableInstance<T>): boolean
   label: string
   variant?: 'right' | 'left'
 }

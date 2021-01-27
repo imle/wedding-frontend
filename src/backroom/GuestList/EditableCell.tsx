@@ -1,9 +1,10 @@
-import React from "react";
+import React, {CSSProperties} from "react";
 import type {CellProps, UseUpdateTableOptions} from "react-table";
 import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 
 import {Invitee} from "../../types/invitee";
+import {grey} from "@material-ui/core/colors";
 
 export interface EditableTextCellProps<D extends Record<string, unknown>, V = any>
   extends CellProps<D, V>,
@@ -18,6 +19,11 @@ export const EditableTextCell = (props: EditableTextCellProps<Invitee>) => {
     setValue(props.value)
   }, [props.value]);
 
+  let style: CSSProperties = {};
+  if (value === null) {
+    style.color = grey["50"];
+  }
+
   return (
     <Input
       disableUnderline
@@ -26,6 +32,8 @@ export const EditableTextCell = (props: EditableTextCellProps<Invitee>) => {
         style: {padding: 2},
       }}
       value={value}
+      placeholder={"<null>"}
+      style={style}
       onChange={(e) => setValue(e.target.value)}
       onBlur={() => props.updateData(props.row.index, props.column.id, value)}
     />

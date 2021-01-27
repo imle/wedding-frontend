@@ -7,8 +7,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import {APIHost} from "../data/api";
-import {ErrorResponse, LoginResponse} from "../types/responses";
+import axios, {APIHost} from "../data/axios";
+import {AllInviteesResponse, ErrorResponse, LoginResponse} from "../types/responses";
 import {withSignIn} from "react-auth-kit";
 import {signInFunctionParams} from "react-auth-kit/dist/types";
 
@@ -55,25 +55,36 @@ class Login extends React.Component<Props, State> {
       trying: true,
     });
 
-    fetch(`//${APIHost}/api/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-      }),
-    })
-      .then((response) => {
-        if (response.status !== 200) throw response.status;
+    const body = {
+      username: this.state.username,
+      password: this.state.password,
+    };
 
-        return response.json()
-      })
-      .then((data: ErrorResponse | LoginResponse) => {
-        if ("error" in data) {
-          throw data;
+    axios.post<ErrorResponse | LoginResponse>("/api/login", body)
+      .then((response) => {
+        let err: string | null = null;
+        if (response.status !== 200) {
+          switch (response.status) {
+            case 401:
+              err = "Unable to log in with these credentials.";
+              break;
+            default:
+              err = "Unable to login."
+          }
+        } else if ("error" in response.data) {
+          err = response.data.error;
         }
+
+        if (err !== null) {
+          this.setState({
+            password: "",
+            trying: false,
+            error: err,
+          });
+          return;
+        }
+
+        const data = response.data as LoginResponse;
 
         const success = this.props.signIn({
           token: data.user.username,
@@ -86,30 +97,10 @@ class Login extends React.Component<Props, State> {
           this.props.history.push("/backroom");
         } else {
           this.setState({
-            error: "Unable to login.",
             trying: false,
+            error: "Unable to login.",
           });
         }
-      })
-      .catch((reason: number | ErrorResponse) => {
-        let err: string;
-        if (typeof reason === "number") {
-          switch (reason) {
-            case 401:
-              err = "Unable to log in with these credentials.";
-              break;
-            default:
-              err = "Unknown error occurred.";
-          }
-        } else {
-          err = reason.error;
-        }
-
-        this.setState({
-          password: "",
-          trying: false,
-          error: err,
-        });
       });
   }
 

@@ -44,10 +44,10 @@ import Box from '@material-ui/core/Box';
 
 export interface TableProperties<T extends Record<string, unknown>> extends TableOptions<T> {
   name: string
-  onAdd?: (instance: TableInstance<T>) => MouseEventHandler
-  onDelete?: (instance: TableInstance<T>) => MouseEventHandler
-  onEdit?: (instance: TableInstance<T>) => MouseEventHandler
-  onClick?: (row: Row<T>) => void
+  onAdd?(instance: TableInstance<T>): MouseEventHandler
+  onDelete?(instance: TableInstance<T>): MouseEventHandler
+  onEdit?(instance: TableInstance<T>): MouseEventHandler
+  onClick?(row: Row<T>): void
 }
 
 const DefaultHeader: React.FC<HeaderProps<any>> = ({column}) => (

@@ -21,7 +21,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import Dashboard from "./Deashboard";
 import GuestList from "./GuestList";
-import {APIHost} from "../data/api";
+import {APIHost} from "../data/axios";
 import {ErrorResponse} from "../types/responses";
 
 const drawerWidth = 240;
