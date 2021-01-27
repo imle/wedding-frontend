@@ -57,6 +57,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.11",
     "@types/faker": "^5.1.5",
+    "@material-ui/codemod": "^5.0.0",
     "@types/react-image-gallery": "^1.0.1",
     "@types/react-router-dom": "^5.1.6",
     "@types/react-table": "^7.0.27",

@@ -193,9 +193,9 @@ class App extends React.Component<Props, State> {
             [classes.contentShift]: this.state.open,
           })}
         >
-          <Box display={"flex"} height={"100%"} flexDirection={"column"}>
+          <Box sx={{display: "flex", height: "100%", flexDirection: "column"}}>
             <div className={classes.drawerHeader}/>
-            <Box flexGrow={1}>
+            <Box sx={{flex: 1}}>
               <Switch>
                 <Route path="/backroom/guest-list" exact component={GuestList}/>
                 <Route path="/backroom" exact component={Dashboard}/>

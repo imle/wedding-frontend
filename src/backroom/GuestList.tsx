@@ -6,12 +6,12 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "../data/axios";
 import {Table} from "./GuestList/Table";
 import {Invitee} from "../types/invitee";
-import {EditableCheckboxCell, EditableTextCell} from "./GuestList/EditableCell";
+import {EditableCheckboxCell, EditablePlusOneCell, EditableTextCell} from "./GuestList/EditableCell";
 import {ErrorResponse, AllInviteesResponse} from "../types/responses";
-import Typography from "@material-ui/core/Typography";
 
 const columns: Column<Invitee>[] = [
   {
+    id: "name",
     Header: "Name",
     accessor: "name",
     aggregate: "count",
@@ -24,21 +24,30 @@ const columns: Column<Invitee>[] = [
     aggregate: "uniqueCount",
     filter: "fuzzyText",
     minWidth: 50,
-    Cell: EditableTextCell,
   },
   {
-    Header: "Plus One",
-    accessor: (d) => d.plus_one_name || null,
+    id: "has_plus_one",
+    Header: "Has Plus One",
+    accessor: (d) => d.has_plus_one || false,
     minWidth: 50,
-    Cell: EditableTextCell,
+    Cell: EditableCheckboxCell,
   },
   {
+    id: "plus_one_name",
+    Header: "Plus One",
+    accessor: (d) => d,
+    minWidth: 50,
+    Cell: EditablePlusOneCell,
+  },
+  {
+    id: "email",
     Header: "Email",
     accessor: "email",
     minWidth: 50,
     Cell: EditableTextCell,
   },
   {
+    id: "rsvp_response",
     Header: "RSVP",
     accessor: (d) => d.rsvp_response || false,
     width: 80,

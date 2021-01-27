@@ -40,6 +40,30 @@ export const EditableTextCell = (props: EditableTextCellProps<Invitee>) => {
   )
 }
 
+export const EditablePlusOneCell = (props: EditableTextCellProps<Invitee>) => {
+  const [value, setValue] = React.useState(props.value.plus_one_name);
+
+  // If the initialValue is changed external, sync it up with our state
+  React.useEffect(() => {
+    setValue(props.value.plus_one_name)
+  }, [props.value.plus_one_name]);
+
+  return (
+    <Input
+      disableUnderline
+      fullWidth
+      inputProps={{
+        style: {padding: 2},
+      }}
+      disabled={!props.value.has_plus_one}
+      placeholder={!props.value.has_plus_one ? "---" : ""}
+      value={value || ""}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={() => props.updateData(props.row.index, props.column.id, value)}
+    />
+  )
+}
+
 export interface EditableCheckboxCellProps<D extends Record<string, unknown>, V = any>
   extends CellProps<D, V>,
     UseUpdateTableOptions<D> {
@@ -47,6 +71,8 @@ export interface EditableCheckboxCellProps<D extends Record<string, unknown>, V 
 
 export const EditableCheckboxCell = (props: EditableCheckboxCellProps<Invitee>) => {
   const [value, setValue] = React.useState(props.value as boolean);
+
+  console.log(props.column);
 
   // If the initialValue is changed external, sync it up with our state
   React.useEffect(() => {
@@ -57,8 +83,7 @@ export const EditableCheckboxCell = (props: EditableCheckboxCellProps<Invitee>) 
     <Checkbox
       style={{padding: 0}}
       checked={value}
-      onChange={(e, c) => setValue(c)}
-      onBlur={() => props.updateData(props.row.index, props.column.id, value)}
+      onChange={(e, c) => props.updateData(props.row.index, props.column.id, c)}
     />
   )
 }
