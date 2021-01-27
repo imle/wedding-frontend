@@ -50,7 +50,7 @@ const TitleSmall = styled(Title)`
   font-size: 12vw;
 `;
 
-const MobileNavContainer = styled(Title)`
+const MobileNavContainer = styled(Box)`
   position: fixed;
   bottom: 0;
   left: 0;
