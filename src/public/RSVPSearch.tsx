@@ -1,4 +1,6 @@
-import React, {GetDerivedStateFromProps} from "react";
+import React from "react";
+import axios from "../data/axios";
+import {RouteComponentProps} from "react-router";
 import {withRouter} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -15,8 +17,6 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
-import {APIHost} from "../data/axios";
-import {RouteComponentProps} from "react-router";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -82,39 +82,41 @@ class RSVPSearch extends React.Component<Props, State> {
   }
 
   searchForInviteeCode = (name: string) => {
-    fetch(`${APIHost}/api/v1/invitees?query=${encodeURIComponent(name)}`)
+    axios.get<ErrorResponse | InviteeSearchResponse>(`/api/v1/invitees?query=${encodeURIComponent(name)}`)
       .then((response) => {
-        if (response.status !== 200) throw response.status;
-
-        return response.json()
-      })
-      .then((data: ErrorResponse | InviteeSearchResponse) => {
-        if ("error" in data) throw data;
-
-        return data;
-      })
-      .then((data: InviteeSearchResponse) => {
-        this.setState({
-          matches: data.matches,
-          searching: false,
-        });
-      })
-      .catch((reason: number | ErrorResponse) => {
-        let err: string;
-        if (typeof reason === "number") {
-          switch (reason) {
+        let err: string | null = null;
+        if (response.status !== 200) {
+          switch (response.status) {
             case 404:
               err = "No guests match your search."
               break;
             default:
               err = "Unknown error occurred."
           }
-        } else {
-          err = reason.error;
+        } else if ("error" in response.data) {
+          err = response.data.error;
         }
 
+        if (err !== null) {
+          this.setState({
+            error: err,
+            searching: false,
+          });
+          return;
+        }
+
+        const data = response.data as InviteeSearchResponse;
+
         this.setState({
-          error: err,
+          matches: data.matches,
+          searching: false,
+        });
+      })
+      .catch((reason) => {
+        console.error(reason);
+
+        this.setState({
+          error: reason,
           searching: false,
         });
       });

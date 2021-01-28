@@ -21,7 +21,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import Dashboard from "./Deashboard";
 import GuestList from "./GuestList";
-import {APIHost} from "../data/axios";
+import axios from "../data/axios";
 import {ErrorResponse} from "../types/responses";
 
 const drawerWidth = 240;
@@ -113,22 +113,21 @@ class App extends React.Component<Props, State> {
   };
 
   private logout = () => {
-    fetch(`//${APIHost}/api/logout`)
+    axios.get<ErrorResponse | {}>("/api/logout")
       .then((response) => {
-        if (response.status !== 200) throw response.status;
-      })
-      .catch((reason: number | ErrorResponse) => {
-        let err: string;
-        if (typeof reason === "number") {
-          switch (reason) {
+        let err: string | null = null;
+        if (response.status !== 200) {
+          switch (response.status) {
             default:
               err = "Unknown error occurred."
           }
-        } else {
-          err = reason.error;
+        } else if ("error" in response.data) {
+          err = response.data.error;
         }
 
-        console.error(err);
+        if (err !== null) {
+          console.error(err);
+        }
       });
 
     this.props.signOut();

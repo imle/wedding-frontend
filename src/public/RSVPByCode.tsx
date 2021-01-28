@@ -4,12 +4,12 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {Party} from "../types/invitee";
-import {ErrorResponse, RsvpCodeResponse} from "../types/responses";
+import {ErrorResponse, InviteeSearchResponse, RsvpCodeResponse} from "../types/responses";
 import {Card, CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Link as RouterLink} from "react-router-dom";
 import Box from "@material-ui/core/Box";
-import {APIHost} from "../data/axios";
+import axios from "../data/axios";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -46,39 +46,41 @@ class RSVPByCode extends React.Component<Props, State> {
   }
 
   getInviteeFromCode = (code: string) => {
-    fetch(`${APIHost}/api/v1/invitees/${encodeURIComponent(code)}`)
+    axios.get<ErrorResponse | RsvpCodeResponse>(`/api/v1/invitees/${encodeURIComponent(code)}`)
       .then((response) => {
-        if (response.status !== 200) throw response.status;
-
-        return response.json()
-      })
-      .then((data: ErrorResponse | RsvpCodeResponse) => {
-        if ("error" in data) throw data;
-
-        return data;
-      })
-      .then((data: RsvpCodeResponse) => {
-        this.setState({
-          party: data.party,
-          searching: false,
-        });
-      })
-      .catch((reason: number | ErrorResponse) => {
-        let err: string;
-        if (typeof reason === "number") {
-          switch (reason) {
+        let err: string | null = null;
+        if (response.status !== 200) {
+          switch (response.status) {
             case 404:
               err = "No guests found with that code."
               break;
             default:
               err = "Unknown error occurred."
           }
-        } else {
-          err = reason.error;
+        } else if ("error" in response.data) {
+          err = response.data.error;
         }
 
+        if (err !== null) {
+          this.setState({
+            error: err,
+            searching: false,
+          });
+          return;
+        }
+
+        const data = response.data as RsvpCodeResponse;
+
         this.setState({
-          error: err,
+          party: data.party,
+          searching: false,
+        });
+      })
+      .catch((reason) => {
+        console.error(reason);
+
+        this.setState({
+          error: reason,
           searching: false,
         });
       });

@@ -13,11 +13,3 @@ const instance: AxiosInstance = ((): AxiosInstance => {
 })();
 
 export default instance;
-
-export const APIHost = ((): string => {
-  if (process.env.NODE_ENV !== "production" && !!process.env.REACT_APP_BACKEND) {
-    return process.env.REACT_APP_BACKEND;
-  } else {
-    return window.location.hostname;
-  }
-})();
