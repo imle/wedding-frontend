@@ -1,4 +1,5 @@
-import React from "react";
+import React, {GetDerivedStateFromProps} from "react";
+import {withRouter} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -15,6 +16,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import {APIHost} from "../data/axios";
+import {RouteComponentProps} from "react-router";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -22,7 +24,7 @@ const styles = (theme: Theme) => createStyles({
   },
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends WithStyles<typeof styles>, RouteComponentProps {
   setRsvpCode(code: string): void;
 }
 
@@ -41,6 +43,37 @@ class RSVPSearch extends React.Component<Props, State> {
     name: "",
     selected_code: null,
   };
+
+  static getDerivedStateFromProps(nextProps: Readonly<Props>, prevState: State): Partial<State> | null {
+    const params = new URLSearchParams(nextProps.location.search);
+
+    if (!params.has("q")) {
+      return {
+        matches: null,
+      };
+    }
+
+    if (prevState.name !== "") {
+      return null;
+    }
+
+    if (params.has("q")) {
+      return {
+        name: params.get("q") as string,
+        searching: true,
+      };
+    } else {
+      return null;
+    }
+  }
+
+  componentDidMount() {
+    const params = new URLSearchParams(this.props.location.search);
+
+    if (params.has("q")) {
+      this.searchForInviteeCode(params.get("q") as string);
+    }
+  }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
     if (this.state.matches && this.state.matches.length === 1) {
@@ -89,6 +122,11 @@ class RSVPSearch extends React.Component<Props, State> {
 
   submitSearch = (e: React.FormEvent) => {
     e.preventDefault();
+
+    this.props.history.push({
+      pathname: this.props.history.location.pathname,
+      search: `?q=${this.state.name}`,
+    });
 
     this.setState({
       searching: true,
@@ -228,4 +266,4 @@ class RSVPSearch extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(RSVPSearch);
+export default withStyles(styles, {withTheme: true})(withRouter(RSVPSearch));

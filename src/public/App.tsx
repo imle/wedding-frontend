@@ -132,7 +132,7 @@ class App extends React.Component<Props, State> {
               </Box>
             </Hidden>
           </Grid>
-          <Hidden xsDown>
+          <Hidden smDown>
             <Grid item sm={12}>
               <DesktopNav page={this.state.page} setPage={this.setPage}/>
             </Grid>
@@ -152,7 +152,7 @@ class App extends React.Component<Props, State> {
             <Route path="/rsvp/:rsvp_code" exact render={(match: RouteComponentProps<{ rsvp_code: string }>) => (
               <RSVPByCode code={match.match.params.rsvp_code}/>
             )}/>
-            <Route path="/rsvp" exact>
+            <Route path="/rsvp">
               <RSVPSearch setRsvpCode={this.setRsvpCode}/>
             </Route>
             <Route path="/" exact>
