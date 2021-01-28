@@ -1,15 +1,16 @@
 import React from "react";
+import axios from "../../data/axios";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {Party} from "../types/invitee";
-import {ErrorResponse, InviteeSearchResponse, RsvpCodeResponse} from "../types/responses";
 import {Card, CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Link as RouterLink} from "react-router-dom";
 import Box from "@material-ui/core/Box";
-import axios from "../data/axios";
+
+import {Party} from "../../types/invitee";
+import {ErrorResponse, RsvpCodeResponse} from "../../types/responses";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -27,7 +28,7 @@ interface State {
   error?: string;
 }
 
-class RSVPByCode extends React.Component<Props, State> {
+class ByCode extends React.Component<Props, State> {
   state: State = {
     searching: false,
     party: null,
@@ -80,7 +81,7 @@ class RSVPByCode extends React.Component<Props, State> {
         console.error(reason);
 
         this.setState({
-          error: reason,
+          error: reason.toString(),
           searching: false,
         });
       });
@@ -170,4 +171,4 @@ class RSVPByCode extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(RSVPByCode);
+export default withStyles(styles, {withTheme: true})(ByCode);

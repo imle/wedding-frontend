@@ -123,7 +123,7 @@ class App extends React.Component<Props, State> {
         console.error(reason);
 
         this.setState({
-          error: reason,
+          error: reason.toString(),
           loading: false,
         });
       });

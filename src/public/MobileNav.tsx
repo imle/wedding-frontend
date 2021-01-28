@@ -9,7 +9,11 @@ import ImagesIcon from "@material-ui/icons/Photo";
 import RegistryIcon from "@material-ui/icons/ListRounded";
 import RSVPIcon from "@material-ui/icons/Mail";
 
-const styles = (theme: Theme) => createStyles({});
+const styles = (theme: Theme) => createStyles({
+  action: {
+    minWidth: "40px",
+  }
+});
 
 interface Props extends WithStyles<typeof styles> {
   page: string;
@@ -31,11 +35,46 @@ class MobileNav extends React.Component<Props, State> {
         onChange={(event, value) => this.props.setPage(value)}
         showLabels
       >
-        <BottomNavigationAction label="Home" value="home" icon={<HomeIcon/>} component={RouterLink} to={"/"}/>
-        <BottomNavigationAction label="Travel" value="travel" icon={<HotelIcon/>} component={RouterLink} to={"/travel"}/>
-        <BottomNavigationAction label="Gallery" value="gallery" icon={<ImagesIcon/>} component={RouterLink} to={"/gallery"}/>
-        <BottomNavigationAction label="Registry" value="registry" icon={<RegistryIcon/>} component={RouterLink} to={"/registry"}/>
-        <BottomNavigationAction label="RSVP" value="rsvp" icon={<RSVPIcon/>} component={RouterLink} to={"/rsvp"}/>
+        <BottomNavigationAction
+          className={classes.action}
+          to={"/"}
+          label="Home"
+          value="home"
+          icon={<HomeIcon/>}
+          component={RouterLink}
+        />
+        <BottomNavigationAction
+          className={classes.action}
+          to={"/travel"}
+          label="Travel"
+          value="travel"
+          icon={<HotelIcon/>}
+          component={RouterLink}
+        />
+        <BottomNavigationAction
+          className={classes.action}
+          to={"/gallery"}
+          label="Gallery"
+          value="gallery"
+          icon={<ImagesIcon/>}
+          component={RouterLink}
+        />
+        <BottomNavigationAction
+          className={classes.action}
+          to={"/registry"}
+          label="Registry"
+          value="registry"
+          icon={<RegistryIcon/>}
+          component={RouterLink}
+        />
+        <BottomNavigationAction
+          className={classes.action}
+          to={"/rsvp"}
+          label="RSVP"
+          value="rsvp"
+          icon={<RSVPIcon/>}
+          component={RouterLink}
+        />
       </BottomNavigation>
     );
   }

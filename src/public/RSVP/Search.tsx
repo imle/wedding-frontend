@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "../data/axios";
+import axios from "../../data/axios";
 import {RouteComponentProps} from "react-router";
 import {withRouter} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
@@ -9,14 +9,14 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import {Party} from "../types/invitee";
-import {ErrorResponse, InviteeSearchResponse} from "../types/responses";
 import {CircularProgress} from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
+import {Party} from "../../types/invitee";
+import {ErrorResponse, InviteeSearchResponse} from "../../types/responses";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -36,7 +36,7 @@ interface State {
   selected_code: string | null;
 }
 
-class RSVPSearch extends React.Component<Props, State> {
+class Search extends React.Component<Props, State> {
   state: State = {
     searching: false,
     matches: null,
@@ -53,7 +53,7 @@ class RSVPSearch extends React.Component<Props, State> {
       };
     }
 
-    if (prevState.name !== "") {
+    if (prevState.name !== "" && prevState.matches !== null) {
       return null;
     }
 
@@ -76,8 +76,12 @@ class RSVPSearch extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
+    const params = new URLSearchParams(this.props.location.search);
+
     if (this.state.matches && this.state.matches.length === 1) {
       this.props.setRsvpCode(this.state.matches[0].code);
+    } else if (this.state.matches === null && params.get("q") === this.state.name) {
+      this.searchForInviteeCode(this.state.name);
     }
   }
 
@@ -116,7 +120,7 @@ class RSVPSearch extends React.Component<Props, State> {
         console.error(reason);
 
         this.setState({
-          error: reason,
+          error: reason.toString(),
           searching: false,
         });
       });
@@ -268,4 +272,4 @@ class RSVPSearch extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(withRouter(RSVPSearch));
+export default withStyles(styles, {withTheme: true})(withRouter(Search));

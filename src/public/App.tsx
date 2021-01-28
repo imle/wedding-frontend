@@ -14,8 +14,8 @@ import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery";
 import {galleryImages} from "../data/gallery";
-import RSVPByCode from "./RSVPByCode";
-import RSVPSearch from "./RSVPSearch";
+import RSVPByCode from "./RSVP/ByCode";
+import RSVPSearch from "./RSVP/Search";
 import Travel from "./Hotels";
 import styled from "@emotion/styled";
 
