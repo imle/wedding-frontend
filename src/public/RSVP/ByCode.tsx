@@ -1,5 +1,6 @@
 import React from "react";
 import {Link as RouterLink} from "react-router-dom";
+import {AxiosError} from "axios";
 import axios from "../../data/axios";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -62,22 +63,10 @@ class ByCode extends React.Component<Props, State> {
   getInviteeFromCode = (code: string) => {
     axios.get<ErrorResponse | RsvpCodeResponse>(`/api/v1/invitees/${encodeURIComponent(code)}`)
       .then((response) => {
-        let err: string | null = null;
-        if (response.status !== 200) {
-          switch (response.status) {
-            case 404:
-              err = "No guests found with that code."
-              break;
-            default:
-              err = "Unknown error occurred."
-          }
-        } else if ("error" in response.data) {
-          err = response.data.error;
-        }
-
-        if (err !== null) {
+        console.log("happy", response.status);
+        if ("error" in response.data) {
           this.setState({
-            error: err,
+            error: response.data.error,
             searching: false,
           });
           return;
@@ -93,11 +82,20 @@ class ByCode extends React.Component<Props, State> {
           searching: false,
         });
       })
-      .catch((reason) => {
-        console.error(reason);
+      .catch((result: AxiosError) => {
+        console.error(result);
+
+        let err: string = "";
+        if (result.response && result.response.status !== 200) {
+          switch (result.response.status) {
+            case 404:
+              err = "No guests found with that code."
+              break;
+          }
+        }
 
         this.setState({
-          error: reason.toString(),
+          error: err || "Unknown error occurred.",
           searching: false,
         });
       });
@@ -124,34 +122,38 @@ class ByCode extends React.Component<Props, State> {
             spacing={0}
           >
             <Grid item xs={12}>
-              <Typography align={"center"}>
-                {this.state.error}
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Box mt={2} mb={2}>
-                <Button
-                  variant={"contained"}
-                  color={"primary"}
-                  fullWidth
-                  component={RouterLink}
-                  to={"/rsvp"}
-                >
-                  Search By Name
-                </Button>
-              </Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box mt={2} mb={2}>
-                <Button
-                  variant={"contained"}
-                  color={"primary"}
-                  fullWidth
-                  // onClick={this.submitSearch}
-                >
-                  Try Another Code
-                </Button>
-              </Box>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography align={"center"}>
+                    {this.state.error}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box mt={2} mb={2}>
+                    <Button
+                      variant={"contained"}
+                      color={"primary"}
+                      fullWidth
+                      component={RouterLink}
+                      to={"/rsvp"}
+                    >
+                      Search By Name
+                    </Button>
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box mt={2} mb={2}>
+                    <Button
+                      variant={"contained"}
+                      color={"primary"}
+                      fullWidth
+                      // onClick={this.submitSearch}
+                    >
+                      Try Another Code
+                    </Button>
+                  </Box>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
