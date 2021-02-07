@@ -63,7 +63,6 @@ class ByCode extends React.Component<Props, State> {
   getInviteeFromCode = (code: string) => {
     axios.get<ErrorResponse | RsvpCodeResponse>(`/api/v1/invitees/${encodeURIComponent(code)}`)
       .then((response) => {
-        console.log("happy", response.status);
         if ("error" in response.data) {
           this.setState({
             error: response.data.error,
