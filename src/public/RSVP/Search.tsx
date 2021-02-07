@@ -84,12 +84,6 @@ class Search extends React.Component<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
-    if (this.state.matches && this.state.matches.length === 1) {
-      this.props.setRsvpCode(this.state.matches[0].code);
-    }
-  }
-
   searchForInviteeCode = (name: string) => {
     axios.get<ErrorResponse | InviteeSearchResponse>(`/api/v1/invitees?query=${encodeURIComponent(name)}`)
       .then((response) => {
@@ -175,7 +169,7 @@ class Search extends React.Component<Props, State> {
       );
     }
 
-    if (this.state.matches && this.state.matches.length > 1) {
+    if (this.state.matches && this.state.matches.length > 0) {
       return (
         <Container className={classes.root} maxWidth="sm">
           <Grid
