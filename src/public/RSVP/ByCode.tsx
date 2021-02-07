@@ -1,4 +1,5 @@
 import React from "react";
+import {Link as RouterLink} from "react-router-dom";
 import axios from "../../data/axios";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -6,8 +7,13 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {Card, CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import {Link as RouterLink} from "react-router-dom";
 import Box from "@material-ui/core/Box";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 import {Party} from "../../types/invitee";
 import {ErrorResponse, RsvpCodeResponse} from "../../types/responses";
@@ -71,6 +77,8 @@ class ByCode extends React.Component<Props, State> {
         }
 
         const data = response.data as RsvpCodeResponse;
+
+        data.party.edges.Invitees?.forEach(i => i.rsvp_response = true);
 
         this.setState({
           party: data.party,
@@ -158,11 +166,32 @@ class ByCode extends React.Component<Props, State> {
         >
           <Grid item xs={12}>
             <Card>
-              <Typography align={"center"}>
-                {this.state.party.edges.Invitees!.map((related, i) => (
-                  <React.Fragment key={i}>Name: {related.name}<br/></React.Fragment>
-                ))}
-              </Typography>
+              <Box sx={{display: "flex", height: "100%", justifyContent: "center"}}>
+                <Box p={3}>
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend">Attending?</FormLabel>
+                    <FormGroup>
+                      {this.state.party.edges.Invitees!.map((related, i) => (
+                        <FormControlLabel
+                          key={i}
+                          control={<Checkbox
+                            checked={related.rsvp_response}
+                            value={related.rsvp_response}
+                            // onChange={handleChange}
+                            name={related.name}
+                          />}
+                          label={related.name}
+                        />
+                      ))}
+                    </FormGroup>
+                    {this.state.error ? (
+                      <FormHelperText>{this.state.error}</FormHelperText>
+                    ) : (
+                      <React.Fragment/>
+                    )}
+                  </FormControl>
+                </Box>
+              </Box>
             </Card>
           </Grid>
         </Grid>

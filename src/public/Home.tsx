@@ -68,104 +68,102 @@ class Home extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      // <Container className={classes.root} maxWidth="xl">
-        <Grid container>
-          <Grid className={classes.hero} item sm={12}>
-            <Box className={classes.hero_image}>
-              <Image
-                style={{
-                  display: "block",
-                  maxWidth: "100%",
-                  height: "auto",
-                  width: "auto",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-                url={hero_large}
-                variants={[
-                  {url: hero_small, width: 427, height: 640},
-                  {url: hero_large, width: 1920, height: 1281},
-                  {url: hero_original, width: 6016, height: 4016},
-                ]}
-                altText={"hero"}
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Container className={classes.card_grid} maxWidth="xl">
-              <Grid container spacing={4}>
-                <Grid item xs={12} sm={6}>
-                  <Card className={classes.card}>
-                    <Image
-                      style={{
-                        maxWidth: "100%",
-                        height: "auto",
-                        width: "auto",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                      }}
-                      url={venue_large}
-                      variants={[
-                        {url: venue_large, width: 960, height: 540},
-                      ]}
-                      altText={"venue"}
-                    />
-                    <CardContent className={classes.card_content}>
-                      <Grid container>
-                        <Grid item xs={6}>
-                          <Typography gutterBottom variant="subtitle1">
-                            Where
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Typography variant={"subtitle1"} align={"right"}>
-                            The Estate<br/>
-                            Atlanta, GA 30305<br/>
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Card className={classes.card}>
-                    <Image
-                      style={{
-                        maxWidth: "100%",
-                        height: "auto",
-                        width: "auto",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                      }}
-                      url={piedmont_park}
-                      variants={[
-                        {url: piedmont_park, width: 3008, height: 1692},
-                      ]}
-                      altText={"season"}
-                    />
-                    <CardContent className={classes.card_content}>
-                      <Grid container>
-                        <Grid item xs={4}>
-                          <Typography gutterBottom variant="subtitle1">
-                            When
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={8}>
-                          <Typography variant={"subtitle1"} align={"right"}>
-                            {format(this.props.date_of_wedding, "iiii, MMMM dd, yyyy")}
-                            <br/>
-                            {format(this.props.date_of_wedding, "h:mm a")}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-            </Container>
-          </Grid>
+      <Grid container>
+        <Grid className={classes.hero} item sm={12}>
+          <Box className={classes.hero_image}>
+            <Image
+              style={{
+                display: "block",
+                maxWidth: "100%",
+                height: "auto",
+                width: "auto",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+              url={hero_large}
+              variants={[
+                {url: hero_small, width: 427, height: 640},
+                {url: hero_large, width: 1920, height: 1281},
+                {url: hero_original, width: 6016, height: 4016},
+              ]}
+              altText={"hero"}
+            />
+          </Box>
         </Grid>
-      // </Container>
+        <Grid item xs={12}>
+          <Container className={classes.card_grid} maxWidth="xl">
+            <Grid container spacing={4}>
+              <Grid item xs={12} sm={6}>
+                <Card className={classes.card}>
+                  <Image
+                    style={{
+                      maxWidth: "100%",
+                      height: "auto",
+                      width: "auto",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    url={venue_large}
+                    variants={[
+                      {url: venue_large, width: 960, height: 540},
+                    ]}
+                    altText={"venue"}
+                  />
+                  <CardContent className={classes.card_content}>
+                    <Grid container>
+                      <Grid item xs={6}>
+                        <Typography gutterBottom variant="subtitle1">
+                          Where
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography variant={"subtitle1"} align={"right"}>
+                          The Estate<br/>
+                          Atlanta, GA 30305<br/>
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Card className={classes.card}>
+                  <Image
+                    style={{
+                      maxWidth: "100%",
+                      height: "auto",
+                      width: "auto",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    url={piedmont_park}
+                    variants={[
+                      {url: piedmont_park, width: 3008, height: 1692},
+                    ]}
+                    altText={"season"}
+                  />
+                  <CardContent className={classes.card_content}>
+                    <Grid container>
+                      <Grid item xs={4}>
+                        <Typography gutterBottom variant="subtitle1">
+                          When
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <Typography variant={"subtitle1"} align={"right"}>
+                          {format(this.props.date_of_wedding, "iiii, MMMM dd, yyyy")}
+                          <br/>
+                          {format(this.props.date_of_wedding, "h:mm a")}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </Container>
+        </Grid>
+      </Grid>
     );
   }
 }

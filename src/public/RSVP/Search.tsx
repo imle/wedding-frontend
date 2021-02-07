@@ -17,6 +17,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import {Party} from "../../types/invitee";
 import {ErrorResponse, InviteeSearchResponse} from "../../types/responses";
+import {LocationDescriptor} from "history";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -47,16 +48,26 @@ class Search extends React.Component<Props, State> {
   static getDerivedStateFromProps(nextProps: Readonly<Props>, prevState: State): Partial<State> | null {
     const params = new URLSearchParams(nextProps.location.search);
 
+    // If there is no query, then there should be no matches.
+    // History.back results in this being triggered.
     if (!params.has("q")) {
       return {
         matches: null,
       };
     }
 
-    if (prevState.name !== "" && prevState.matches !== null) {
+    // If there was a search error, don't try to intercept the state as they will want to change the query.
+    if (!!prevState.error) {
       return null;
     }
 
+    // If they have set a name and there are matches, do not intercept.
+    if (prevState.name !== "" && !!prevState.matches) {
+      return null;
+    }
+
+    // If the page was loaded with a query, we need to initialize that.
+    // Since this is called before componentDidMount, this will trigger the search.
     if (params.has("q")) {
       return {
         name: params.get("q") as string,
@@ -68,20 +79,14 @@ class Search extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const params = new URLSearchParams(this.props.location.search);
-
-    if (params.has("q")) {
-      this.searchForInviteeCode(params.get("q") as string);
+    if (!!this.state.name) {
+      this.searchForInviteeCode(this.state.name);
     }
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
-    const params = new URLSearchParams(this.props.location.search);
-
     if (this.state.matches && this.state.matches.length === 1) {
       this.props.setRsvpCode(this.state.matches[0].code);
-    } else if (this.state.matches === null && params.get("q") === this.state.name) {
-      this.searchForInviteeCode(this.state.name);
     }
   }
 
@@ -91,14 +96,13 @@ class Search extends React.Component<Props, State> {
         let err: string | null = null;
         if (response.status !== 200) {
           switch (response.status) {
-            case 404:
-              err = "No guests match your search."
-              break;
             default:
               err = "Unknown error occurred."
           }
         } else if ("error" in response.data) {
           err = response.data.error;
+        } else if (response.data.matches.length === 0) {
+          err = "No guests found matching that search.";
         }
 
         if (err !== null) {
@@ -129,13 +133,22 @@ class Search extends React.Component<Props, State> {
   submitSearch = (e: React.FormEvent) => {
     e.preventDefault();
 
-    this.props.history.push({
+    const params = new URLSearchParams(this.props.location.search);
+
+    const next_history: LocationDescriptor = {
       pathname: this.props.history.location.pathname,
       search: `?q=${this.state.name}`,
-    });
+    };
+
+    if (params.has("q")) {
+      this.props.history.replace(next_history);
+    } else {
+      this.props.history.push(next_history);
+    }
 
     this.setState({
       searching: true,
+      error: undefined,
     });
 
     this.searchForInviteeCode(this.state.name);
@@ -212,8 +225,6 @@ class Search extends React.Component<Props, State> {
     let error: string = "";
     if (!!this.state.error && !this.state.searching) {
       error = this.state.error;
-    } else if (this.state.matches && this.state.matches.length === 0) {
-      error = "No guests found matching that search.";
     }
 
     return (
