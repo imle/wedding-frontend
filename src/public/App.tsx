@@ -1,6 +1,5 @@
 import React from "react";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router-dom";
-import {ReactImageGalleryItem} from "react-image-gallery";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -13,7 +12,7 @@ import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery";
-import {galleryImages} from "../data/gallery";
+import {galleryImages, ImageListItemData} from "../data/gallery";
 import RSVPByCode from "./RSVP/ByCode";
 import RSVPSearch from "./RSVP/Search";
 import Travel from "./Hotels";
@@ -73,7 +72,7 @@ interface Props extends WithStyles<typeof styles>, RouteComponentProps {
 
 interface State {
   date_of_wedding: Date;
-  images: ReactImageGalleryItem[];
+  images: ImageListItemData[];
   page: string;
 }
 
