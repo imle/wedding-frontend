@@ -5,7 +5,7 @@ import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/sty
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {Card, CircularProgress} from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import FormControl from "@material-ui/core/FormControl";
@@ -21,6 +21,13 @@ import {ErrorResponse, RsvpCodeResponse} from "../../types/responses";
 const styles = (theme: Theme) => createStyles({
   root: {
     height: "100%",
+  },
+  rsvp: {
+    minWidth: 400,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      minWidth: 0,
+    },
   },
 });
 
@@ -78,7 +85,8 @@ class ByCode extends React.Component<Props, State> {
 
         const data = response.data as RsvpCodeResponse;
 
-        data.party.edges.Invitees?.forEach(i => i.rsvp_response = true);
+        // Set this before setting the state so the checkboxes are auto selected
+        data.party.edges.Invitees!.forEach(i => i.rsvp_response = true);
 
         this.setState({
           party: data.party,
@@ -94,6 +102,10 @@ class ByCode extends React.Component<Props, State> {
         });
       });
   }
+
+  submitSelected: React.MouseEventHandler = () => {
+
+  };
 
   render() {
     const {classes} = this.props;
@@ -165,34 +177,55 @@ class ByCode extends React.Component<Props, State> {
           spacing={0}
         >
           <Grid item xs={12}>
-            <Card>
-              <Box sx={{display: "flex", height: "100%", justifyContent: "center"}}>
-                <Box p={3}>
-                  <FormControl component="fieldset">
-                    <FormLabel component="legend">Attending?</FormLabel>
-                    <FormGroup>
-                      {this.state.party.edges.Invitees!.map((related, i) => (
-                        <FormControlLabel
-                          key={i}
-                          control={<Checkbox
-                            checked={related.rsvp_response}
-                            value={related.rsvp_response}
-                            // onChange={handleChange}
-                            name={related.name}
-                          />}
-                          label={related.name}
-                        />
-                      ))}
-                    </FormGroup>
-                    {this.state.error ? (
-                      <FormHelperText>{this.state.error}</FormHelperText>
-                    ) : (
-                      <React.Fragment/>
-                    )}
-                  </FormControl>
+            <Box sx={{display: "flex", height: "100%", justifyContent: "center"}}>
+              <Box className={classes.rsvp} p={3}>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Attending?</FormLabel>
+                  <FormGroup>
+                    {this.state.party.edges.Invitees!.map((related, i) => (
+                      <FormControlLabel
+                        key={i}
+                        control={<Checkbox
+                          checked={related.rsvp_response}
+                          value={related.rsvp_response}
+                          onChange={(event, checked) => this.setState({
+                            party: {
+                              ...this.state.party!,
+                              edges: {
+                                ...this.state.party!.edges,
+                                Invitees: this.state.party!.edges.Invitees!.map((value, index) => {
+                                  if (i === index) {
+                                    value.rsvp_response = checked;
+                                  }
+
+                                  return value;
+                                }),
+                              },
+                            }
+                          })}
+                          name={related.name}
+                        />}
+                        label={related.name}
+                      />
+                    ))}
+                  </FormGroup>
+                  {this.state.error ? (
+                    <FormHelperText>{this.state.error}</FormHelperText>
+                  ) : (
+                    <React.Fragment/>
+                  )}
+                </FormControl>
+                <Box mt={2} display="flex" flexDirection="row-reverse">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.submitSelected}
+                  >
+                    Submit
+                  </Button>
                 </Box>
               </Box>
-            </Card>
+            </Box>
           </Grid>
         </Grid>
       </Container>
