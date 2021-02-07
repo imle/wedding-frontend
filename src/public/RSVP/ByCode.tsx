@@ -101,7 +101,30 @@ class ByCode extends React.Component<Props, State> {
   }
 
   submitSelected: React.MouseEventHandler = () => {
+    axios.post<ErrorResponse>(`/api/v1/invitees`, this.state.party!.edges.Invitees!)
+      .then((response) => {
+        this.setState({
+          error: response.data && "error" in response.data ? response.data.error : undefined,
+          searching: false,
+        });
+      })
+      .catch((result: AxiosError) => {
+        console.error(result);
 
+        let err: string = "";
+        if (result.response && result.response.status !== 200) {
+          switch (result.response.status) {
+            case 403:
+              err = "Not able to make those changes."
+              break;
+          }
+        }
+
+        this.setState({
+          error: err || "Unknown error occurred.",
+          searching: false,
+        });
+      });
   };
 
   render() {
