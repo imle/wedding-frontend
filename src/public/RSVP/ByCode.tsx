@@ -1,5 +1,6 @@
 import React from "react";
-import {Link as RouterLink} from "react-router-dom";
+import {RouteComponentProps} from "react-router";
+import {Link as RouterLink, withRouter} from "react-router-dom";
 import {AxiosError} from "axios";
 import axios from "../../data/axios";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
@@ -32,7 +33,7 @@ const styles = (theme: Theme) => createStyles({
   },
 });
 
-interface Props extends WithStyles<typeof styles> {
+interface Props extends WithStyles<typeof styles>, RouteComponentProps {
   code: string;
 }
 
@@ -44,7 +45,7 @@ interface State {
 
 class ByCode extends React.Component<Props, State> {
   state: State = {
-    searching: false,
+    searching: !!this.props.code,
     party: null,
   };
 
@@ -61,7 +62,11 @@ class ByCode extends React.Component<Props, State> {
   }
 
   getInviteeFromCode = (code: string) => {
-    axios.get<ErrorResponse | RsvpCodeResponse>(`/api/v1/invitees/${encodeURIComponent(code)}`)
+    this.setState({
+      searching: true,
+    });
+
+    axios.get<ErrorResponse | RsvpCodeResponse>(`/api/v1/invitee/${encodeURIComponent(code)}`)
       .then((response) => {
         if ("error" in response.data) {
           this.setState({
@@ -101,12 +106,20 @@ class ByCode extends React.Component<Props, State> {
   }
 
   submitSelected: React.MouseEventHandler = () => {
+    this.setState({
+      searching: true,
+    });
+
     axios.post<ErrorResponse>(`/api/v1/invitees`, this.state.party!.edges.Invitees!)
       .then((response) => {
-        this.setState({
-          error: response.data && "error" in response.data ? response.data.error : undefined,
-          searching: false,
-        });
+        if (response.data && "error" in response.data) {
+          this.setState({
+            error: response.data.error,
+            searching: false,
+          });
+        } else {
+          this.props.history.push("/rsvp/finished");
+        }
       })
       .catch((result: AxiosError) => {
         console.error(result);
@@ -130,64 +143,6 @@ class ByCode extends React.Component<Props, State> {
   render() {
     const {classes} = this.props;
 
-    if (this.state.error) {
-      return (
-        <Container className={classes.root} maxWidth="md">
-          <Grid
-            style={{
-              height: "100%",
-            }}
-            container
-            direction="row"
-            justifyItems="center"
-            alignItems="center"
-            spacing={0}
-          >
-            <Grid item xs={12}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Typography align={"center"}>
-                    {this.state.error}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Box mt={2} mb={2}>
-                    <Button
-                      variant={"contained"}
-                      color={"primary"}
-                      fullWidth
-                      component={RouterLink}
-                      to={"/rsvp"}
-                    >
-                      Search By Name
-                    </Button>
-                  </Box>
-                </Grid>
-                <Grid item xs={6}>
-                  <Box mt={2} mb={2}>
-                    <Button
-                      variant={"contained"}
-                      color={"primary"}
-                      fullWidth
-                      // onClick={this.submitSearch}
-                    >
-                      Try Another Code
-                    </Button>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Container>
-      );
-    }
-
-    if (!this.state.party) {
-      return (
-        <CircularProgress/>
-      );
-    }
-
     return (
       <Container className={classes.root} maxWidth="md">
         <Grid
@@ -196,60 +151,140 @@ class ByCode extends React.Component<Props, State> {
           }}
           container
           direction="row"
-          justifyItems="center"
+          justifyContent="center"
           alignItems="center"
           spacing={0}
         >
           <Grid item xs={12}>
-            <Box sx={{display: "flex", height: "100%", justifyContent: "center"}}>
-              <Box className={classes.rsvp} p={3}>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Attending?</FormLabel>
-                  <FormGroup>
-                    {this.state.party.edges.Invitees!.map((related, i) => (
-                      <FormControlLabel
-                        key={i}
-                        control={<Checkbox
-                          checked={related.rsvp_response}
-                          value={related.rsvp_response}
-                          onChange={(event, checked) => this.setState({
-                            party: {
-                              ...this.state.party!,
-                              edges: {
-                                ...this.state.party!.edges,
-                                Invitees: this.state.party!.edges.Invitees!.map((value, index) => {
-                                  if (i === index) {
-                                    value.rsvp_response = checked;
-                                  }
+            {(() => {
+              if (this.state.searching) {
+                return (
+                  <Box display="flex"
+                       justifyContent="center">
+                    <CircularProgress/>
+                  </Box>
+                );
+              }
 
-                                  return value;
-                                }),
-                              },
-                            }
-                          })}
-                          name={related.name}
-                        />}
-                        label={related.name}
-                      />
-                    ))}
-                  </FormGroup>
-                  {this.state.error ? (
-                    <FormHelperText>{this.state.error}</FormHelperText>
-                  ) : (
-                    <React.Fragment/>
-                  )}
-                </FormControl>
-                <Box mt={2} display="flex" flexDirection="row-reverse">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={this.submitSelected}
+              if (this.state.error) {
+                return (
+                  <Container className={classes.root} maxWidth="md">
+                    <Grid
+                      style={{
+                        height: "100%",
+                      }}
+                      container
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      spacing={0}
+                    >
+                      <Grid item xs={12}>
+                        <Grid container spacing={2}>
+                          <Grid item xs={12}>
+                            <Typography align={"center"}>
+                              {this.state.error}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box mt={2} mb={2}>
+                              <Button
+                                variant={"contained"}
+                                color={"primary"}
+                                fullWidth
+                                component={RouterLink}
+                                to={"/rsvp"}
+                              >
+                                Search By Name
+                              </Button>
+                            </Box>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Box mt={2} mb={2}>
+                              <Button
+                                variant={"contained"}
+                                color={"primary"}
+                                fullWidth
+                                // onClick={this.submitSearch}
+                              >
+                                Try Another Code
+                              </Button>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Container>
+                );
+              }
+
+              return (
+                <Container className={classes.root} maxWidth="md">
+                  <Grid
+                    style={{
+                      height: "100%",
+                    }}
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={0}
                   >
-                    Submit
-                  </Button>
-                </Box>
-              </Box>
-            </Box>
+                    <Grid item xs={12}>
+                      <Box sx={{display: "flex", height: "100%", justifyContent: "center"}}>
+                        <Box className={classes.rsvp} p={3}>
+                          <FormControl component="fieldset">
+                            <FormLabel component="legend">Attending?</FormLabel>
+                            <FormGroup>
+                              {this.state.party!.edges.Invitees!.map((related, i) => (
+                                <FormControlLabel
+                                  key={i}
+                                  control={<Checkbox
+                                    checked={related.rsvp_response}
+                                    value={related.rsvp_response}
+                                    onChange={(event, checked) => this.setState({
+                                      party: {
+                                        ...this.state.party!,
+                                        edges: {
+                                          ...this.state.party!.edges,
+                                          Invitees: this.state.party!.edges.Invitees!.map((value, index) => {
+                                            if (i === index) {
+                                              value.rsvp_response = checked;
+                                            }
+
+                                            return value;
+                                          }),
+                                        },
+                                      }
+                                    })}
+                                    name={related.name}
+                                  />}
+                                  label={related.name}
+                                />
+                              ))}
+                            </FormGroup>
+                            {this.state.error ? (
+                              <FormHelperText>{this.state.error}</FormHelperText>
+                            ) : (
+                              <React.Fragment/>
+                            )}
+                          </FormControl>
+                          <Box mt={2} display="flex" flexDirection="row-reverse">
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={this.submitSelected}
+                            >
+                              Submit
+                            </Button>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Container>
+              );
+            })()}
           </Grid>
         </Grid>
       </Container>
@@ -257,4 +292,4 @@ class ByCode extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(ByCode);
+export default withStyles(styles, {withTheme: true})(withRouter(ByCode));

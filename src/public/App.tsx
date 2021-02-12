@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "@emotion/styled";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -7,16 +8,16 @@ import Hidden from "@material-ui/core/Hidden";
 import Box from "@material-ui/core/Box";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 
-import Countdown from "./Countdown";
 import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery";
-import {galleryImages, ImageListItemData} from "../data/gallery";
 import RSVPByCode from "./RSVP/ByCode";
 import RSVPSearch from "./RSVP/Search";
+import RSVPFinished from "./RSVP/Finished";
 import Travel from "./Hotels";
-import styled from "@emotion/styled";
+import {galleryImages, ImageListItemData} from "../data/gallery";
+import {differenceInCalendarDays} from "date-fns";
 
 const Root = styled(Box)`
   height: 100%;
@@ -118,7 +119,7 @@ class App extends React.Component<Props, State> {
                   <Typography variant={"h6"} align={"right"}>
                     <span>The Estate<br/></span>
                     <span>Atlanta, GA 30305<br/></span>
-                    <Countdown day={this.state.date_of_wedding}/>
+                    <span>{differenceInCalendarDays(this.state.date_of_wedding.getTime(), (new Date()).getTime())} days to go!</span>
                   </Typography>
                 </Grid>
               </Grid>
@@ -148,10 +149,13 @@ class App extends React.Component<Props, State> {
             <Route path="/registry" exact>
               {/*<Registry />*/}
             </Route>
+            <Route path="/rsvp/finished" exact>
+              <RSVPFinished date_of_wedding={this.state.date_of_wedding}/>
+            </Route>
             <Route path="/rsvp/:rsvp_code" exact render={(match: RouteComponentProps<{ rsvp_code: string }>) => (
               <RSVPByCode code={match.match.params.rsvp_code}/>
             )}/>
-            <Route path="/rsvp">
+            <Route path="/rsvp" exact>
               <RSVPSearch setRsvpCode={this.setRsvpCode}/>
             </Route>
             <Route path="/" exact>

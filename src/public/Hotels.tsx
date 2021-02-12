@@ -50,7 +50,7 @@ class Travel extends React.Component<Props, State> {
 
     return (
       <Container className={classes.root} maxWidth="lg">
-        <Grid container spacing={4} justifyItems="center">
+        <Grid container spacing={4} justifyContent="center">
           {accommodations.map((accommodation, i) => (
             <Grid key={accommodation.name} item xs={12} sm={i === 0 ? 12 : 6}>
               <Card className={classes.card}>
