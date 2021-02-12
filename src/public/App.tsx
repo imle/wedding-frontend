@@ -101,6 +101,10 @@ class App extends React.Component<Props, State> {
     this.props.history.push(`/rsvp/${code}`);
   };
 
+  finishRsvp = () => {
+    this.props.history.push("/rsvp/finished");
+  };
+
   render() {
     const {classes} = this.props;
 
@@ -153,7 +157,7 @@ class App extends React.Component<Props, State> {
               <RSVPFinished date_of_wedding={this.state.date_of_wedding}/>
             </Route>
             <Route path="/rsvp/:rsvp_code" exact render={(match: RouteComponentProps<{ rsvp_code: string }>) => (
-              <RSVPByCode code={match.match.params.rsvp_code}/>
+              <RSVPByCode code={match.match.params.rsvp_code} finish={this.finishRsvp}/>
             )}/>
             <Route path="/rsvp" exact>
               <RSVPSearch setRsvpCode={this.setRsvpCode}/>

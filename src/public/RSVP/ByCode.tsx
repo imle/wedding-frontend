@@ -1,6 +1,5 @@
 import React from "react";
-import {RouteComponentProps} from "react-router";
-import {Link as RouterLink, withRouter} from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import {AxiosError} from "axios";
 import axios from "../../data/axios";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
@@ -33,7 +32,8 @@ const styles = (theme: Theme) => createStyles({
   },
 });
 
-interface Props extends WithStyles<typeof styles>, RouteComponentProps {
+interface Props extends WithStyles<typeof styles> {
+  finish(): void;
   code: string;
 }
 
@@ -118,7 +118,7 @@ class ByCode extends React.Component<Props, State> {
             searching: false,
           });
         } else {
-          this.props.history.push("/rsvp/finished");
+          this.props.finish();
         }
       })
       .catch((result: AxiosError) => {
@@ -292,4 +292,4 @@ class ByCode extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(withRouter(ByCode));
+export default withStyles(styles, {withTheme: true})(ByCode);
