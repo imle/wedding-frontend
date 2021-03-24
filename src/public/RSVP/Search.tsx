@@ -15,8 +15,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
-import {Party} from "../../types/invitee";
-import {ErrorResponse, InviteeSearchResponse} from "../../types/responses";
+import {Party} from "../../@types/invitee";
+import {ErrorResponse, InviteeSearchResponse} from "../../@types/responses";
 import {LocationDescriptor} from "history";
 
 const styles = (theme: Theme) => createStyles({

@@ -16,8 +16,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-import {Party} from "../../types/invitee";
-import {ErrorResponse, RsvpCodeResponse} from "../../types/responses";
+import {Party} from "../../@types/invitee";
+import {ErrorResponse, RsvpCodeResponse} from "../../@types/responses";
 
 const styles = (theme: Theme) => createStyles({
   root: {

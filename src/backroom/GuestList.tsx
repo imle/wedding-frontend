@@ -5,9 +5,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import axios from "../data/axios";
 import {Table} from "./GuestList/Table";
-import {Invitee} from "../types/invitee";
+import {Invitee} from "../@types/invitee";
 import {EditableCheckboxCell, EditablePlusOneCell, EditableTextCell} from "./GuestList/EditableCell";
-import {ErrorResponse, AllInviteesResponse} from "../types/responses";
+import {ErrorResponse, AllInviteesResponse} from "../@types/responses";
 
 const columns: Column<Invitee>[] = [
   {

@@ -31,6 +31,7 @@ const Content = styled(Box)`
 
 const Header = styled(Box)`
   flex: 0;
+  background-color: ${props => props.theme.palette.grey[100]};
 `;
 
 const Footer = styled(Box)`
@@ -109,7 +110,7 @@ class App extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      <Root maxWidth={"xl"}>
+      <Root>
         <Header>
           <Grid item xs={12}>
             <Hidden mdDown>

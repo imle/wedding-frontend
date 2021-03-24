@@ -1,5 +1,5 @@
 import faker from 'faker';
-import {Invitee, Party} from "../../../types/invitee";
+import {Invitee, Party} from "../../../@types/invitee";
 
 const range = (len: number) => {
   const arr = []

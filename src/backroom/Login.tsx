@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import axios from "../data/axios";
-import {ErrorResponse, LoginResponse} from "../types/responses";
+import {ErrorResponse, LoginResponse} from "../@types/responses";
 import {withSignIn} from "react-auth-kit";
 import {signInFunctionParams} from "react-auth-kit/dist/types";
 

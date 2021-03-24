@@ -1,6 +1,6 @@
+import grand_hyatt_buckhead from "../photos/grand-hyatt-buckhead-2.jpg";
 import courtyard_marriott from "../photos/courtyard-marriott.jpg";
 import hyatt_place_atlanta_buckhead from "../photos/hyatt-place-atlanta-buckhead.webp";
-import intercontinental_buckhead_atlanta from "../photos/intercontinental-buckhead-atlanta.jpg";
 
 export interface Accommodation {
   name: string;
@@ -14,12 +14,13 @@ export interface Accommodation {
 
 export const accommodations: Accommodation[] = [
   {
-    name: "InterContinental Buckhead Atlanta",
-    booking_url: "https://www.intercontinentalatlanta.com/",
-    img_url: intercontinental_buckhead_atlanta,
-    phone_number: "404-946-9000",
-    address: "3315 Peachtree Rd NE, Atlanta, GA 30326",
-    google_map_link: "https://goo.gl/maps/xoMDhJkDC8q9aCTW9",
+    name: "The Grand Hyatt Atlanta Buckhead",
+    booking_url: "https://www.hyatt.com/en-US/group-booking/ATLGH/G-SMIM",
+    img_url: grand_hyatt_buckhead,
+    phone_number: "404-237-1234",
+    block_code: "G-SMIM",
+    address: "3300 Peachtree Rd NE, Atlanta, GA 30305",
+    google_map_link: "https://goo.gl/maps/GMes85Qy5F754zVJ7",
   },
   {
     name: "Courtyard by Marriott Atlanta Buckhead",
