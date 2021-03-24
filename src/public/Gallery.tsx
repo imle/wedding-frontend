@@ -1,6 +1,4 @@
 import React from "react";
-import styled from "@emotion/styled";
-import Box from "@material-ui/core/Box";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
 import {ImageListItemData} from "../data/gallery";

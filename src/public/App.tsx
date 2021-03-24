@@ -31,6 +31,7 @@ const Content = styled(Box)`
 
 const Header = styled(Box)`
   flex: 0;
+  z-index: 10000;
   background-color: ${props => props.theme.palette.grey[100]};
 `;
 

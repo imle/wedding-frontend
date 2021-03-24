@@ -9,10 +9,6 @@ import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
-import hero_small from "../photos/hero-small.jpg";
-import hero_large from "../photos/hero-large.jpg";
-import hero_original from "../photos/hero-original.jpg";
-
 import venue_large from "../photos/the-estate.jpg";
 import piedmont_park from "../photos/piedmont-park-atlanta.jpg";
 
@@ -31,11 +27,17 @@ const styles = (theme: Theme) => createStyles({
     overflow: "hidden",
   },
   hero_image: {
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("sm")]: {
       marginTop: "-10vh",
     },
+    [theme.breakpoints.up("md")]: {
+      marginTop: "-16vh",
+    },
     [theme.breakpoints.up("lg")]: {
-      marginTop: "-5vh",
+      marginTop: "-23vh",
+    },
+    [theme.breakpoints.up("xl")]: {
+      marginTop: "-34vh",
     },
   },
   card_grid: {
@@ -80,12 +82,13 @@ class Home extends React.Component<Props, State> {
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
-              url={hero_large}
-              variants={[
-                {url: hero_small, width: 427, height: 640},
-                {url: hero_large, width: 1920, height: 1281},
-                {url: hero_original, width: 6016, height: 4016},
-              ]}
+              url={"https://lh3.googleusercontent.com/pvJyQfZ4kFZGmYKEEXyUOA3tF2vAnsAYCHrYGzWW77CBN1rW4X3KumqVjMLJDXMDtAkVuheGqG6VwFHmD-q4MXpt_gOY3mLRtpMJovuSeS13b6J88cl-WiAkE1AyhdntkAvJg3r_Xw=w2400"}
+              // url={"https://lh3.googleusercontent.com/DrZpea1vIN694m3504T4R5om4ytQiRhVUs9I_FDaI24K4ZIHvBTmXIbrgD9BQ6HjMbfb7eLgxZlVi_wCaWpYoUW-_W0mytj1AdOSazMC9x3hbvjl6F2CtDXTqNFZ7rQxZ7icOykamg=w2400"}
+              // variants={[
+              //   {url: hero_small, width: 427, height: 640},
+              //   {url: hero_large, width: 1920, height: 1281},
+              //   {url: hero_original, width: 6016, height: 4016},
+              // ]}
               altText={"hero"}
             />
           </Box>
