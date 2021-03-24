@@ -17,7 +17,7 @@ import RSVPSearch from "./RSVP/Search";
 import RSVPFinished from "./RSVP/Finished";
 import Travel from "./Hotels";
 import {galleryImages, ImageListItemData} from "../data/gallery";
-import {differenceInCalendarDays} from "date-fns";
+import {differenceInCalendarDays, format} from "date-fns";
 
 const Root = styled(Box)`
   height: 100%;
@@ -123,8 +123,9 @@ class App extends React.Component<Props, State> {
                 </Grid>
                 <Grid item xs={3}>
                   <Typography variant={"h6"} align={"right"}>
-                    <span>The Estate<br/></span>
-                    <span>Atlanta, GA 30305<br/></span>
+                    <span>#ImleBeeYours<br/></span>
+                    {/*<span>#imlebeeyours<br/></span>*/}
+                    <span>{format(this.state.date_of_wedding, "MMMM dd, yyyy")}<br/></span>
                     <span>{differenceInCalendarDays(this.state.date_of_wedding.getTime(), (new Date()).getTime())} days to go!</span>
                   </Typography>
                 </Grid>

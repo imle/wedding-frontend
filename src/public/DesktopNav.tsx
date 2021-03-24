@@ -7,8 +7,18 @@ import {Link as RouterLink} from "react-router-dom";
 
 const styles = (theme: Theme) => createStyles({
   tab: {
-    [theme.breakpoints.down("md")]: {
-      minWidth: 100,
+    minWidth: 0,
+    [theme.breakpoints.up("lg")]: {
+      padding: "0 40px",
+    },
+    [theme.breakpoints.down("lg")]: {
+      padding: "0 15px",
+    },
+    [theme.breakpoints.down(760)]: {
+      padding: "0 8px",
+    },
+    [theme.breakpoints.down(630)]: {
+      padding: "0 6px",
     },
   },
 });
@@ -33,9 +43,12 @@ class DesktopNav extends React.Component<Props, State> {
           centered
         >
           <Tab className={classes.tab} label="Home" value={"home"} component={RouterLink} to={"/"}/>
+          <Tab className={classes.tab} label="Schedule" value={"schedule"} component={RouterLink} to={"/schedule"}/>
+          <Tab className={classes.tab} label="Wedding Party" value={"wedding-party"} component={RouterLink} to={"/wedding-party"}/>
           <Tab className={classes.tab} label="Travel" value={"travel"} component={RouterLink} to={"/travel"}/>
           <Tab className={classes.tab} label="Gallery" value={"gallery"} component={RouterLink} to={"/gallery"}/>
           <Tab className={classes.tab} label="Registry" value={"registry"} component={RouterLink} to={"/registry"}/>
+          <Tab className={classes.tab} label="FAQ" value={"faq"} component={RouterLink} to={"/faq"}/>
           <Tab className={classes.tab} label="RSVP" value={"rsvp"} component={RouterLink} to={"/rsvp"}/>
         </Tabs>
       </Paper>

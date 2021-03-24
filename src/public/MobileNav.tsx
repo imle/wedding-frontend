@@ -6,7 +6,7 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import HomeIcon from "@material-ui/icons/HomeRounded";
 import HotelIcon from "@material-ui/icons/HotelRounded";
 import ImagesIcon from "@material-ui/icons/Photo";
-import RegistryIcon from "@material-ui/icons/ListRounded";
+import MoreIcon from "@material-ui/icons/Menu";
 import RSVPIcon from "@material-ui/icons/Mail";
 
 const styles = (theme: Theme) => createStyles({
@@ -61,18 +61,18 @@ class MobileNav extends React.Component<Props, State> {
         />
         <BottomNavigationAction
           className={classes.action}
-          to={"/registry"}
-          label="Registry"
-          value="registry"
-          icon={<RegistryIcon/>}
-          component={RouterLink}
-        />
-        <BottomNavigationAction
-          className={classes.action}
           to={"/rsvp"}
           label="RSVP"
           value="rsvp"
           icon={<RSVPIcon/>}
+          component={RouterLink}
+        />
+        <BottomNavigationAction
+          className={classes.action}
+          to={"/more"}
+          label="More"
+          value="more"
+          icon={<MoreIcon/>}
           component={RouterLink}
         />
       </BottomNavigation>
