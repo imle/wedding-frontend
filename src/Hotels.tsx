@@ -6,7 +6,7 @@ import Card from "@material-ui/core/Card";
 import {Image} from "@crystallize/react-image";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import {Accommodation, accommodations} from "../data/hotels";
+import {Accommodation, accommodations} from "./data/hotels";
 import {CardActions, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";

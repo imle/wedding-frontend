@@ -9,8 +9,8 @@ import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 
-import venue_large from "../photos/the-estate.jpg";
-import piedmont_park from "../photos/piedmont-park-atlanta.jpg";
+import venue_large from "./photos/the-estate.jpg";
+import piedmont_park from "./photos/piedmont-park-atlanta.jpg";
 
 const styles = (theme: Theme) => createStyles({
   root: {

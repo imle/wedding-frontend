@@ -1,7 +1,7 @@
 import React from "react";
 import ImageList from "@material-ui/core/ImageList";
 import ImageListItem from "@material-ui/core/ImageListItem";
-import {ImageListItemData} from "../data/gallery";
+import {ImageListItemData} from "./data/gallery";
 import Hidden from "@material-ui/core/Hidden";
 import Container from "@material-ui/core/Container";
 

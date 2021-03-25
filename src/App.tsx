@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router-dom";
-import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
@@ -16,7 +15,7 @@ import RSVPByCode from "./RSVP/ByCode";
 import RSVPSearch from "./RSVP/Search";
 import RSVPFinished from "./RSVP/Finished";
 import Travel from "./Hotels";
-import {galleryImages, ImageListItemData} from "../data/gallery";
+import {galleryImages, ImageListItemData} from "./data/gallery";
 import {differenceInCalendarDays, format} from "date-fns";
 
 const Root = styled(Box)`
@@ -29,7 +28,7 @@ const Content = styled(Box)`
   flex: 1;
 `;
 
-const Header = styled(Box)`
+const Header = styled.header`
   flex: 0;
   z-index: 10000;
   background-color: ${props => props.theme.palette.grey[100]};
@@ -59,18 +58,12 @@ const MobileNavContainer = styled(Box)`
   right: 0;
 `;
 
-const styles = (theme: Theme) => createStyles({
-  title_space: {
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
-    [theme.breakpoints.down("md")]: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-  },
-});
+const TitleSpaceGrid = styled(Grid)`
+  padding-left: ${props => props.theme.spacing(3)}px;
+  padding-right: ${props => props.theme.spacing(3)}px;
+`;
 
-interface Props extends WithStyles<typeof styles>, RouteComponentProps {
+interface Props extends RouteComponentProps {
 }
 
 interface State {
@@ -108,14 +101,12 @@ class App extends React.Component<Props, State> {
   };
 
   render() {
-    const {classes} = this.props;
-
     return (
       <Root>
         <Header>
           <Grid item xs={12}>
             <Hidden mdDown>
-              <Grid className={classes.title_space} container alignItems={"center"}>
+              <TitleSpaceGrid id={"test"} container alignItems={"center"}>
                 <Grid item xs={9} marginTop={3}>
                   <TitleLarge variant="h2">
                     Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
@@ -129,7 +120,7 @@ class App extends React.Component<Props, State> {
                     <span>{differenceInCalendarDays(this.state.date_of_wedding.getTime(), (new Date()).getTime())} days to go!</span>
                   </Typography>
                 </Grid>
-              </Grid>
+              </TitleSpaceGrid>
             </Hidden>
             <Hidden mdUp>
               <Box marginTop={3}>
@@ -152,6 +143,15 @@ class App extends React.Component<Props, State> {
             </Route>
             <Route path="/gallery" exact>
               <Gallery images={this.state.images}/>
+            </Route>
+            <Route path="/schedule" exact>
+              {/*<Registry />*/}
+            </Route>
+            <Route path="/wedding-party" exact>
+              {/*<Registry />*/}
+            </Route>
+            <Route path="/faq" exact>
+              {/*<Registry />*/}
             </Route>
             <Route path="/registry" exact>
               {/*<Registry />*/}
@@ -188,4 +188,4 @@ class App extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(App);
+export default App;

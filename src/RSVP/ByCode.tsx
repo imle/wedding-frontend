@@ -1,7 +1,7 @@
 import React from "react";
 import {Link as RouterLink} from "react-router-dom";
 import {AxiosError} from "axios";
-import axios from "../../data/axios";
+import axios from "../data/axios";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -16,8 +16,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-import {Party} from "../../@types/invitee";
-import {ErrorResponse, RsvpCodeResponse} from "../../@types/responses";
+import {Party} from "../@types/invitee";
+import {ErrorResponse, RsvpCodeResponse} from "../@types/responses";
 
 const styles = (theme: Theme) => createStyles({
   root: {
