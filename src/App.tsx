@@ -11,7 +11,7 @@ import Box from "@material-ui/core/Box";
 import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 import Home from "./Home";
-import Gallery from "./Gallery";
+import Gallery from "./Gallery/Gallery";
 import {galleryImages, ImageListItemData} from "./data/gallery";
 import RSVPByCode from "./RSVP/ByCode";
 import RSVPSearch from "./RSVP/Search";

@@ -1,9 +1,9 @@
 import React from "react";
 import ImageList from "@material-ui/core/ImageList";
-import ImageListItem from "@material-ui/core/ImageListItem";
-import {ImageListItemData} from "./data/gallery";
+import {ImageListItemData} from "../data/gallery";
 import Hidden from "@material-ui/core/Hidden";
 import Container from "@material-ui/core/Container";
+import SkeletonGalleryImageListItem from "./SkeletonGalleryImageListItem";
 
 interface Props {
   images: ImageListItemData[];
@@ -26,16 +26,7 @@ class Gallery extends React.Component<Props, State> {
 
   render() {
     const imageList = this.props.images.map((item) => (
-      <ImageListItem key={item.img}>
-        <img
-          alt={item.title}
-          src={`${item.img}=w1400`}
-          srcSet={`${item.img}=w800 800w,
-                   ${item.img}=w1400 1400w`}
-          sizes="(max-width: 800px) 800px,
-                 1400px"
-        />
-      </ImageListItem>
+      <SkeletonGalleryImageListItem key={item.img} image={item}/>
     ));
 
     return (
