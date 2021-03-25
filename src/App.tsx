@@ -1,22 +1,23 @@
 import React from "react";
 import styled from "@emotion/styled";
 import {Redirect, Route, RouteComponentProps, Switch} from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
+import {differenceInCalendarDays, format} from "date-fns";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
+import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
 
 import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery";
+import {galleryImages, ImageListItemData} from "./data/gallery";
 import RSVPByCode from "./RSVP/ByCode";
 import RSVPSearch from "./RSVP/Search";
 import RSVPFinished from "./RSVP/Finished";
 import Travel from "./Hotels";
-import {galleryImages, ImageListItemData} from "./data/gallery";
-import {differenceInCalendarDays, format} from "date-fns";
+import Schedule from "./Schedule";
 
 const Root = styled(Box)`
   height: 100%;
@@ -59,8 +60,8 @@ const MobileNavContainer = styled(Box)`
 `;
 
 const TitleSpaceGrid = styled(Grid)`
-  padding-left: ${props => props.theme.spacing(3)}px;
-  padding-right: ${props => props.theme.spacing(3)}px;
+  padding-left: ${props => props.theme.spacing(3)};
+  padding-right: ${props => props.theme.spacing(3)};
 `;
 
 interface Props extends RouteComponentProps {
@@ -145,13 +146,13 @@ class App extends React.Component<Props, State> {
               <Gallery images={this.state.images}/>
             </Route>
             <Route path="/schedule" exact>
-              {/*<Registry />*/}
+              <Schedule />
             </Route>
             <Route path="/wedding-party" exact>
-              {/*<Registry />*/}
+              {/*<WeddingParty />*/}
             </Route>
             <Route path="/faq" exact>
-              {/*<Registry />*/}
+              {/*<FAQ />*/}
             </Route>
             <Route path="/registry" exact>
               {/*<Registry />*/}
