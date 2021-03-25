@@ -12,6 +12,8 @@ import PublicApp from "./App";
 export default function OuterApp() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
+  const additionalLineHeight = 0.05;
+
   const theme = React.useMemo(
     () =>
       createMuiTheme({
@@ -23,6 +25,19 @@ export default function OuterApp() {
         },
         typography: {
           fontFamily: `"Handlee"`,
+          h1: { lineHeight: 1.167 + additionalLineHeight },
+          h2: { lineHeight: 1.2 + additionalLineHeight },
+          h3: { lineHeight: 1.167 + additionalLineHeight },
+          h4: { lineHeight: 1.235 + additionalLineHeight },
+          h5: { lineHeight: 1.334 + additionalLineHeight },
+          h6: { lineHeight: 1.6 + additionalLineHeight },
+          subtitle1: { lineHeight: 1.75 + additionalLineHeight },
+          subtitle2: { lineHeight: 1.57 + additionalLineHeight },
+          body1: { lineHeight: 1.5 + additionalLineHeight },
+          body2: { lineHeight: 1.43 + additionalLineHeight },
+          button: { lineHeight: 1.75 + additionalLineHeight },
+          caption: { lineHeight: 1.66 + additionalLineHeight },
+          overline: { lineHeight: 2.66 + additionalLineHeight },
         },
       }),
     [prefersDarkMode],
