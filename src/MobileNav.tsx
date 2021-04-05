@@ -66,7 +66,6 @@ class MobileNav extends React.Component<Props, State> {
   };
 
   render() {
-    console.log(this.props.page);
     return (
       <>
         <BottomNavigation

@@ -37,8 +37,8 @@ class FAQ extends React.Component<Props, State> {
         <QuestionBlock
           question={`Is there parking at the venue?`}
           answer={`
-            YES! You are required to use the complimentary valet if you drive, 
-            though you will not be able to keep your car parked at the venue overnight.
+            YES! Though you are required to use the complimentary valet if you drive, 
+            and will not be able to keep your car parked at the venue overnight.
           `}
         />
         <QuestionBlock
