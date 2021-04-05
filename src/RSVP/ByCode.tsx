@@ -9,15 +9,15 @@ import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
 
 import {Party} from "../@types/invitee";
 import {ErrorResponse, RsvpCodeResponse} from "../@types/responses";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -34,6 +34,7 @@ const styles = (theme: Theme) => createStyles({
 
 interface Props extends WithStyles<typeof styles> {
   finish(): void;
+
   code: string;
 }
 
@@ -234,43 +235,81 @@ class ByCode extends React.Component<Props, State> {
                   >
                     <Grid item xs={12}>
                       <Box sx={{display: "flex", height: "100%", justifyContent: "center"}}>
-                        <Box className={classes.rsvp} p={3}>
-                          <FormControl component="fieldset">
-                            <FormLabel component="legend">Attending?</FormLabel>
-                            <FormGroup>
+                        <Box className={classes.rsvp} p={0}>
+                          <Grid container>
+                            <Grid item xs={6}>
+                              <Typography>Attending?</Typography>
+                            </Grid>
+                            <Grid item xs={6}>
+                              {this.state.party!.edges.invitees!.some(invitee => invitee.has_plus_one) ? (
+                                <Typography align={"right"}>Plus One?</Typography>
+                              ): (
+                                <></>
+                              )}
+                            </Grid>
+                          </Grid>
+                          <Table>
+                            <TableBody>
                               {this.state.party!.edges.invitees!.map((related, i) => (
-                                <FormControlLabel
-                                  key={i}
-                                  control={<Checkbox
-                                    checked={related.rsvp_response}
-                                    value={related.rsvp_response}
-                                    onChange={(event, checked) => this.setState({
-                                      party: {
-                                        ...this.state.party!,
-                                        edges: {
-                                          ...this.state.party!.edges,
-                                          invitees: this.state.party!.edges.invitees!.map((value, index) => {
-                                            if (i === index) {
-                                              value.rsvp_response = checked;
-                                            }
+                                <TableRow key={related.name}>
+                                  <TableCell scope="row" sx={{p: 0, border: "none"}}>
+                                    <FormControlLabel
+                                      key={i}
+                                      control={<Checkbox
+                                        checked={related.rsvp_response}
+                                        value={related.rsvp_response}
+                                        onChange={(event, checked) => this.setState({
+                                          party: {
+                                            ...this.state.party!,
+                                            edges: {
+                                              ...this.state.party!.edges,
+                                              invitees: this.state.party!.edges.invitees!.map((value, index) => {
+                                                if (i === index) {
+                                                  value.rsvp_response = checked;
+                                                }
 
-                                            return value;
-                                          }),
-                                        },
-                                      }
-                                    })}
-                                    name={related.name}
-                                  />}
-                                  label={related.name}
-                                />
+                                                return value;
+                                              }),
+                                            },
+                                          }
+                                        })}
+                                        name={related.name}
+                                      />}
+                                      label={related.name}
+                                    />
+                                  </TableCell>
+                                  <TableCell align="right" sx={{p: 0, border: "none"}}>
+                                    {related.has_plus_one ? (
+                                      <Checkbox
+                                        sx={{pr: 0}}
+                                        checked={!!related.plus_one_name}
+                                        disabled={related.rsvp_response === false}
+                                        value={related.plus_one_name}
+                                        onChange={(event, checked) => this.setState({
+                                          party: {
+                                            ...this.state.party!,
+                                            edges: {
+                                              ...this.state.party!.edges,
+                                              invitees: this.state.party!.edges.invitees!.map((value, index) => {
+                                                if (i === index) {
+                                                  value.plus_one_name = checked ? "yes" : undefined;
+                                                }
+
+                                                return value;
+                                              }),
+                                            },
+                                          }
+                                        })}
+                                        name={related.name}
+                                      />
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </TableCell>
+                                </TableRow>
                               ))}
-                            </FormGroup>
-                            {this.state.error ? (
-                              <FormHelperText>{this.state.error}</FormHelperText>
-                            ) : (
-                              <React.Fragment/>
-                            )}
-                          </FormControl>
+                            </TableBody>
+                          </Table>
                           <Box mt={2} display="flex" flexDirection="row-reverse">
                             <Button
                               variant="contained"
