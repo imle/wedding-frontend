@@ -78,8 +78,10 @@ class ByCode extends React.Component<Props, State> {
 
         const data = response.data as RsvpCodeResponse;
 
-        // Set this before setting the state so the checkboxes are auto selected
-        data.party.edges.Invitees!.forEach(i => i.rsvp_response = true);
+        // Set this before setting the state so the checkboxes are auto selected if the value is null.
+        data.party.edges.invitees!.forEach(i => {
+          return i.rsvp_response = typeof i.rsvp_response === "boolean" ? i.rsvp_response : true;
+        });
 
         this.setState({
           party: data.party,
@@ -110,7 +112,7 @@ class ByCode extends React.Component<Props, State> {
       searching: true,
     });
 
-    axios.post<ErrorResponse>(`/api/v1/invitees`, this.state.party!.edges.Invitees!)
+    axios.post<ErrorResponse>(`/api/v1/invitees`, this.state.party!.edges.invitees!)
       .then((response) => {
         if (response.data && "error" in response.data) {
           this.setState({
@@ -236,7 +238,7 @@ class ByCode extends React.Component<Props, State> {
                           <FormControl component="fieldset">
                             <FormLabel component="legend">Attending?</FormLabel>
                             <FormGroup>
-                              {this.state.party!.edges.Invitees!.map((related, i) => (
+                              {this.state.party!.edges.invitees!.map((related, i) => (
                                 <FormControlLabel
                                   key={i}
                                   control={<Checkbox
@@ -247,7 +249,7 @@ class ByCode extends React.Component<Props, State> {
                                         ...this.state.party!,
                                         edges: {
                                           ...this.state.party!.edges,
-                                          Invitees: this.state.party!.edges.Invitees!.map((value, index) => {
+                                          invitees: this.state.party!.edges.invitees!.map((value, index) => {
                                             if (i === index) {
                                               value.rsvp_response = checked;
                                             }

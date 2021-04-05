@@ -187,6 +187,8 @@ class Search extends React.Component<Props, State> {
               }
 
               if (this.state.matches && this.state.matches.length > 0) {
+                console.log(this.state.matches);
+
                 return (
                   <Grid
                     item
@@ -209,7 +211,7 @@ class Search extends React.Component<Props, State> {
                             key={match.code}
                             value={match.code}
                             control={<Radio/>}
-                            label={match.edges.Invitees!.map((i) => i.name).join(", ")}/>
+                            label={match.edges.invitees!.map((i) => i.name).join(", ")}/>
                         ))}
                       </RadioGroup>
                     </FormControl>

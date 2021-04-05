@@ -6,7 +6,7 @@ export type Party = {
 }
 
 export type PartyEdges = {
-  Invitees: Invitee[] | null;
+  invitees: Invitee[] | null;
 }
 
 export type Invitee = {
@@ -23,10 +23,10 @@ export type Invitee = {
   address_state?: string;
   address_postal_code?: string;
   address_country?: string;
-  rsvp_response: boolean;
+  rsvp_response?: boolean;
   edges: InviteeEdges;
 }
 
 export type InviteeEdges = {
-  Party: Party | null;
+  party: Party | null;
 }
