@@ -18,6 +18,7 @@ import RSVPSearch from "./RSVP/Search";
 import RSVPFinished from "./RSVP/Finished";
 import Travel from "./Hotels";
 import Schedule from "./Schedule";
+import FAQ from "./FAQ/FAQ";
 
 const Root = styled(Box)`
   height: 100%;
@@ -152,7 +153,7 @@ class App extends React.Component<Props, State> {
               {/*<WeddingParty />*/}
             </Route>
             <Route path="/faq" exact>
-              {/*<FAQ />*/}
+              <FAQ date_of_wedding={this.state.date_of_wedding}/>
             </Route>
             <Route path="/registry" exact>
               {/*<Registry />*/}
