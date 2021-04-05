@@ -32,6 +32,7 @@ const SkeletonGalleryImageListItem: React.FC<Props> = (props) => {
       sizes="(max-width: 800px) 800px,
              (max-width: 1400px) 1400px,
              2400px"
+      loading="lazy"
     />
   );
 
