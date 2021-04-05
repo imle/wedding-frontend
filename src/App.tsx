@@ -32,7 +32,7 @@ const Content = styled(Box)`
 
 const Header = styled.header`
   flex: 0;
-  z-index: 10000;
+  z-index: 1; // ensure the hero image does not cover up the box-shadow of the app-bar
   background-color: ${props => props.theme.palette.grey[100]};
 `;
 

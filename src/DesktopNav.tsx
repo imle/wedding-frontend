@@ -25,7 +25,8 @@ const styles = (theme: Theme) => createStyles({
 
 interface Props extends WithStyles<typeof styles> {
   page: string;
-  setPage(value: string):  void;
+
+  setPage(value: string): void;
 }
 
 interface State {
@@ -33,7 +34,7 @@ interface State {
 
 class DesktopNav extends React.Component<Props, State> {
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
 
     return (
       <Paper square>
