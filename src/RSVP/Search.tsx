@@ -96,7 +96,8 @@ class Search extends React.Component<Props, State> {
         } else if ("error" in response.data) {
           err = response.data.error;
         } else if (response.data.matches.length === 0) {
-          err = "No guests found matching that search.";
+          err = "No guests found matching that search." +
+            " If you believe this is an error, please contact the bride and groom";
         }
 
         if (err !== null) {

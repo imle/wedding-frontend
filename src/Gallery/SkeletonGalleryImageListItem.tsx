@@ -1,7 +1,13 @@
 import React from "react";
-import {ImageListItemData} from "../data/gallery";
 import {ImageListItemBar, Skeleton} from "@material-ui/core";
 import ImageListItem from "@material-ui/core/ImageListItem";
+
+export interface ImageListItemData {
+  img: string;
+  title: string;
+  subtitle?: string;
+  aspectRatio: number;
+}
 
 interface Props {
   image: ImageListItemData;
@@ -22,7 +28,9 @@ const SkeletonGalleryImageListItem: React.FC<Props> = (props) => {
     <></>
   ) : (
     <img
-      onLoad={() => setLoaded(true)}
+      onLoad={() => {
+        setLoaded(true);
+      }}
       style={!loaded ? {display: "none"} : undefined}
       alt={props.image.title}
       src={`${props.image.img}=w1400`}

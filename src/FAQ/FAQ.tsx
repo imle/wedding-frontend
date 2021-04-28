@@ -42,6 +42,13 @@ class FAQ extends React.Component<Props, State> {
           `}
         />
         <QuestionBlock
+          question={`How can I get to the hotel from the airport?`}
+          answer={`
+            If you don't want to rent a car, you can always use a ride share service!
+            However, the fastest way would be on the MARTA train's Red line via Buckhead Station.
+          `}
+        />
+        <QuestionBlock
           question={`Will the ceremony be inside or outside?`}
           answer={`
             Weather permitting, the ceremony will be held outside. 
@@ -60,7 +67,7 @@ class FAQ extends React.Component<Props, State> {
         <QuestionBlock
           question={`What should I wear?`}
           answer={`
-            Come dressed to impress in your favorite formal attire!
+            Come dressed to impress in your favorite semi-formal attire!
           `}
         />
         <QuestionBlock

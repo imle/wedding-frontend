@@ -3,7 +3,6 @@ import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/sty
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
-import {Image} from "@crystallize/react-image";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {Accommodation, accommodations} from "./data/hotels";
@@ -14,11 +13,12 @@ import Link from "@material-ui/core/Link";
 import CardMedia from "@material-ui/core/CardMedia";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
+import Hidden from "@material-ui/core/Hidden";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
+import styled from "@emotion/styled";
 
 const styles = (theme: Theme) => createStyles({
-  root: {
-    padding: theme.spacing(4),
-  },
   card: {
     height: "100%",
     display: "flex",
@@ -36,6 +36,14 @@ const styles = (theme: Theme) => createStyles({
     },
   },
 });
+
+const Root = styled(Container)`
+  ${props => props.theme.breakpoints.up("md")} {
+    padding-top: ${props => props.theme.spacing(4)};
+  }
+  
+  padding-bottom: ${props => props.theme.spacing(4)};
+`;
 
 interface Props extends WithStyles<typeof styles> {
   date_of_wedding: Date;
@@ -58,7 +66,13 @@ class Travel extends React.Component<Props, State> {
     const {classes} = this.props;
 
     return (
-      <Container className={classes.root} maxWidth="lg">
+      <Root maxWidth="lg">
+        <Hidden mdUp>
+          <Box p={1}>
+            <Typography variant={"h4"}>Accommodations</Typography>
+            <Divider orientation="horizontal"/>
+          </Box>
+        </Hidden>
         <Grid container spacing={4} justifyContent="center">
           {accommodations.map((accommodation, i) => (
             <Grid key={accommodation.name} item xs={12} sm={i === 0 ? 12 : 6}>
@@ -72,8 +86,20 @@ class Travel extends React.Component<Props, State> {
                     {accommodation.name}
                   </Typography>
                   <Typography variant={"subtitle2"} align={"center"}>
-                    <span>{accommodation.address}</span>
+                    {accommodation.address}
                   </Typography>
+                  {i === 0 ?
+                    <Typography align={"center"}>
+                      <br/>
+                      Our official block is at this hotel.
+                      <br/>
+                      The Red Line MARTA train can take you almost directly to the hotel via Buckhead Station.
+                      <br/>
+                      If you prefer not to use public transit, ride sharing services are quite popular in Atlanta.
+                    </Typography>
+                    :
+                    <></>
+                  }
                 </CardContent>
                 <CardActions>
                   <ButtonGroup variant="text" fullWidth>
@@ -118,7 +144,7 @@ class Travel extends React.Component<Props, State> {
             </Button>
           </DialogActions>
         </Dialog>
-      </Container>
+      </Root>
     );
   }
 }

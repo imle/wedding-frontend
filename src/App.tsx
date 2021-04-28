@@ -12,12 +12,11 @@ import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery/Gallery";
-import {galleryImages, ImageListItemData} from "./data/gallery";
 import RSVPByCode from "./RSVP/ByCode";
 import RSVPSearch from "./RSVP/Search";
 import RSVPFinished from "./RSVP/Finished";
 import Travel from "./Hotels";
-import Schedule from "./Schedule";
+import Schedule from "./Schedule/Schedule";
 import FAQ from "./FAQ/FAQ";
 
 const Root = styled(Box)`
@@ -70,14 +69,12 @@ interface Props extends RouteComponentProps {
 
 interface State {
   date_of_wedding: Date;
-  images: ImageListItemData[];
   page: string;
 }
 
 class App extends React.Component<Props, State> {
   state: State = {
     date_of_wedding: new Date(2022, 4, 28, 18, 0),
-    images: galleryImages,
     page: ((): string => {
       const pathParts = this.props.history.location.pathname.substr(1).split("/");
       if (pathParts[0].length > 0) {
@@ -144,7 +141,7 @@ class App extends React.Component<Props, State> {
               <Travel date_of_wedding={this.state.date_of_wedding}/>
             </Route>
             <Route path="/gallery" exact>
-              <Gallery images={this.state.images}/>
+              <Gallery/>
             </Route>
             <Route path="/schedule" exact>
               <Schedule />

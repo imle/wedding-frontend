@@ -237,10 +237,10 @@ class ByCode extends React.Component<Props, State> {
                       <Box sx={{display: "flex", height: "100%", justifyContent: "center"}}>
                         <Box className={classes.rsvp} p={0}>
                           <Grid container>
-                            <Grid item xs={6}>
-                              <Typography>Attending?</Typography>
+                            <Grid item xs={8}>
+                              <Typography>Attending the Wedding?</Typography>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
                               {this.state.party!.edges.invitees!.some(invitee => invitee.has_plus_one) ? (
                                 <Typography align={"right"}>Plus One?</Typography>
                               ): (
