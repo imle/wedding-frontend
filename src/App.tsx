@@ -40,7 +40,7 @@ const Footer = styled(Box)`
 `;
 
 const Title = styled(Typography)`
-  font-family: "Mrs Saint Delafield", cursive;
+  font-family: "Allura", cursive;
   user-select: none;
 `;
 
@@ -106,7 +106,7 @@ class App extends React.Component<Props, State> {
           <Grid item xs={12}>
             <Hidden mdDown>
               <TitleSpaceGrid id={"test"} container alignItems={"center"}>
-                <Grid item xs={9} marginTop={3}>
+                <Grid item xs={9} marginTop={1}>
                   <TitleLarge variant="h2">
                     Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
                   </TitleLarge>
@@ -122,7 +122,7 @@ class App extends React.Component<Props, State> {
               </TitleSpaceGrid>
             </Hidden>
             <Hidden mdUp>
-              <Box marginTop={3}>
+              <Box marginTop={1}>
                 <TitleSmall variant="h2" align={"center"}>
                   Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
                 </TitleSmall>
