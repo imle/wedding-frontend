@@ -108,13 +108,12 @@ class App extends React.Component<Props, State> {
               <TitleSpaceGrid id={"test"} container alignItems={"center"}>
                 <Grid item xs={9} marginTop={1}>
                   <TitleLarge variant="h2">
-                    Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
+                    Steven&nbsp;&&nbsp;Savannah
                   </TitleLarge>
                 </Grid>
                 <Grid item xs={3}>
                   <Typography variant={"h6"} align={"right"}>
                     <span>#ImleBeeYours<br/></span>
-                    {/*<span>#imlebeeyours<br/></span>*/}
                     <span>{format(this.state.date_of_wedding, "MMMM dd, yyyy")}<br/></span>
                     <span>{differenceInCalendarDays(this.state.date_of_wedding.getTime(), (new Date()).getTime())} days to go!</span>
                   </Typography>
@@ -124,7 +123,7 @@ class App extends React.Component<Props, State> {
             <Hidden mdUp>
               <Box marginTop={1}>
                 <TitleSmall variant="h2" align={"center"}>
-                  Steven&nbsp;&nbsp;&&nbsp;&nbsp;Savannah
+                  Steven&nbsp;&&nbsp;Savannah
                 </TitleSmall>
               </Box>
             </Hidden>
