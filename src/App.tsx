@@ -86,7 +86,10 @@ class App extends React.Component<Props, State> {
   };
 
   setPage = (value: string) => {
+    window.scrollTo(0, 0);
+
     this.setState({
+      ...this.state,
       page: value,
     })
   };
