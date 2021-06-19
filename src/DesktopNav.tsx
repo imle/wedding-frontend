@@ -1,9 +1,10 @@
 import React from "react";
+import {Link as RouterLink} from "react-router-dom";
 import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import {Link as RouterLink} from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 const styles = (theme: Theme) => createStyles({
   tab: {
@@ -50,7 +51,7 @@ class DesktopNav extends React.Component<Props, State> {
           <Tab className={classes.tab} label="Gallery" value={"gallery"} component={RouterLink} to={"/gallery"}/>
           <Tab className={classes.tab} label="Registry" value={"registry"} component={RouterLink} to={"/registry"}/>
           <Tab className={classes.tab} label="FAQ" value={"faq"} component={RouterLink} to={"/faq"}/>
-          <Tab className={classes.tab} label="RSVP" value={"rsvp"} component={RouterLink} to={"/rsvp"}/>
+          <Tab className={classes.tab} label="RSVP" value={"rsvp"} component={Link} href={"https://steven-savannah.wedsites.com/rsvp"}/>
         </Tabs>
       </Paper>
     );

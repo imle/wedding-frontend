@@ -157,15 +157,6 @@ class App extends React.Component<Props, State> {
             <Route path="/registry" exact>
               {/*<Registry />*/}
             </Route>
-            <Route path="/rsvp/finished" exact>
-              <RSVPFinished date_of_wedding={this.state.date_of_wedding}/>
-            </Route>
-            <Route path="/rsvp/:rsvp_code" exact render={(match: RouteComponentProps<{ rsvp_code: string }>) => (
-              <RSVPByCode code={match.match.params.rsvp_code} finish={this.finishRsvp}/>
-            )}/>
-            <Route path="/rsvp" exact>
-              <RSVPSearch setRsvpCode={this.setRsvpCode}/>
-            </Route>
             <Route path="/" exact>
               <Home date_of_wedding={this.state.date_of_wedding}/>
             </Route>
