@@ -12,6 +12,7 @@ import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery/Gallery";
+import RSVPHoldOn from "./RSVP/HoldOn";
 import RSVPByCode from "./RSVP/ByCode";
 import RSVPSearch from "./RSVP/Search";
 import RSVPFinished from "./RSVP/Finished";
@@ -156,6 +157,9 @@ class App extends React.Component<Props, State> {
             </Route>
             <Route path="/registry" exact>
               {/*<Registry />*/}
+            </Route>
+            <Route path="/rsvp" exact>
+              <RSVPHoldOn />
             </Route>
             <Route path="/" exact>
               <Home date_of_wedding={this.state.date_of_wedding}/>

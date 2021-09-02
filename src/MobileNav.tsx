@@ -185,12 +185,18 @@ class MobileNav extends React.Component<Props, State> {
               <ListItemText primary="FAQ"/>
             </ListItem>
             <Divider/>
-            <ListItem button href={"https://steven-savannah.wedsites.com/rsvp"} component={Link} onClick={this.handleCloseSelected("rsvp")}>
+            <ListItem button to={"/rsvp"} component={RouterLink} onClick={this.handleCloseSelected("rsvp")}>
               <ListItemIcon>
-                <RSVPIcon />
+                <HelpIcon />
               </ListItemIcon>
               <ListItemText primary="RSVP"/>
             </ListItem>
+            {/*<ListItem button href={"https://steven-savannah.wedsites.com/rsvp"} component={Link} onClick={this.handleCloseSelected("rsvp")}>*/}
+            {/*  <ListItemIcon>*/}
+            {/*    <RSVPIcon />*/}
+            {/*  </ListItemIcon>*/}
+            {/*  <ListItemText primary="RSVP"/>*/}
+            {/*</ListItem>*/}
             <Divider/>
           </List>
         </Dialog>
