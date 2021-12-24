@@ -1,22 +1,21 @@
 import React from "react";
-import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import {CardActions, createStyles, Dialog, DialogActions, DialogContent, DialogContentText, Theme} from "@mui/material";
+import {WithStyles, withStyles} from "@mui/styles";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 import {Accommodation, accommodations} from "./data/hotels";
-import {CardActions, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Link from "@material-ui/core/Link";
-import CardMedia from "@material-ui/core/CardMedia";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import Hidden from "@material-ui/core/Hidden";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Link from "@mui/material/Link";
+import CardMedia from "@mui/material/CardMedia";
+import DialogTitle from "@mui/material/DialogTitle";
 import styled from "@emotion/styled";
+import Hidden from "@mui/material/Hidden";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 
 const styles = (theme: Theme) => createStyles({
   card: {
@@ -41,7 +40,7 @@ const Root = styled(Container)`
   ${props => props.theme.breakpoints.up("md")} {
     padding-top: ${props => props.theme.spacing(4)};
   }
-  
+
   padding-bottom: ${props => props.theme.spacing(4)};
 `;
 

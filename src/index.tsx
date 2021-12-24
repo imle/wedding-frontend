@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import OuterApp from "./OuterApp";
-import StyledEngineProvider from "@material-ui/core/StyledEngineProvider";
+import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 
 ReactDOM.render(
   (

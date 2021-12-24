@@ -2,10 +2,10 @@ import React from "react";
 import * as ics from "ics";
 import {format} from "date-fns";
 import styled from "@emotion/styled";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Link from "@material-ui/core/Link";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
 
 const DateTimeTypography = styled(Typography)`
   ${props => props.theme.breakpoints.down("md")} {

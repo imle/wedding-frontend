@@ -1,16 +1,18 @@
 import React from "react";
 import {format} from "date-fns";
-import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+import {createStyles, Theme} from "@mui/material";
+import {WithStyles, withStyles} from "@mui/styles";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import {Image} from "@crystallize/react-image";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 import venue_large from "./photos/the-estate.jpg";
 import piedmont_park from "./photos/piedmont-park-atlanta.jpg";
+import hero from "./photos/hero.png";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -28,16 +30,16 @@ const styles = (theme: Theme) => createStyles({
   },
   hero_image: {
     [theme.breakpoints.up("sm")]: {
-      marginTop: "-10vh",
+      marginTop: "0vh",
     },
     [theme.breakpoints.up("md")]: {
-      marginTop: "-16vh",
+      marginTop: "-2vh",
     },
     [theme.breakpoints.up("lg")]: {
-      marginTop: "-23vh",
+      marginTop: "-6vh",
     },
     [theme.breakpoints.up("xl")]: {
-      marginTop: "-34vh",
+      marginTop: "-12vh",
     },
   },
   card_grid: {
@@ -82,13 +84,7 @@ class Home extends React.Component<Props, State> {
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
-              url={"https://lh3.googleusercontent.com/pvJyQfZ4kFZGmYKEEXyUOA3tF2vAnsAYCHrYGzWW77CBN1rW4X3KumqVjMLJDXMDtAkVuheGqG6VwFHmD-q4MXpt_gOY3mLRtpMJovuSeS13b6J88cl-WiAkE1AyhdntkAvJg3r_Xw=w2400"}
-              // url={"https://lh3.googleusercontent.com/DrZpea1vIN694m3504T4R5om4ytQiRhVUs9I_FDaI24K4ZIHvBTmXIbrgD9BQ6HjMbfb7eLgxZlVi_wCaWpYoUW-_W0mytj1AdOSazMC9x3hbvjl6F2CtDXTqNFZ7rQxZ7icOykamg=w2400"}
-              // variants={[
-              //   {url: hero_small, width: 427, height: 640},
-              //   {url: hero_large, width: 1920, height: 1281},
-              //   {url: hero_original, width: 6016, height: 4016},
-              // ]}
+              url={hero}
               altText={"hero"}
             />
           </Box>

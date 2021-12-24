@@ -1,6 +1,6 @@
 import React from "react";
-import {ImageListItemBar, Skeleton} from "@material-ui/core";
-import ImageListItem from "@material-ui/core/ImageListItem";
+import {ImageListItemBar, Skeleton} from "@mui/material";
+import ImageListItem from "@mui/material/ImageListItem";
 
 export interface ImageListItemData {
   img: string;

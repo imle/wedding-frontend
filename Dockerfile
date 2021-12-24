@@ -3,7 +3,7 @@
 # 2) nginx stage to serve frontend assets
 
 # Name the node stage "builder"
-FROM node:15.5-alpine AS builder
+FROM node:17-alpine AS builder
 # Set working directory
 WORKDIR /app
 # Copy the package listings

@@ -1,35 +1,35 @@
 import React from "react";
 import {Link as RouterLink} from "react-router-dom";
-import { TransitionProps } from "@material-ui/core/transitions";
-import AppBar from "@material-ui/core/AppBar";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import Dialog from "@material-ui/core/Dialog";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Slide from '@material-ui/core/Slide';
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Link from "@material-ui/core/Link";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import { TransitionProps } from "@mui/material/transitions";
+import AppBar from "@mui/material/AppBar";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import Dialog from "@mui/material/Dialog";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Slide from '@mui/material/Slide';
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Link from "@mui/material/Link";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 
-import HomeIcon from "@material-ui/icons/HomeRounded";
-import HotelIcon from "@material-ui/icons/HotelRounded";
-import ImagesIcon from "@material-ui/icons/Photo";
-import MoreIcon from "@material-ui/icons/Menu";
-import RSVPIcon from "@material-ui/icons/Mail";
-import ScheduleIcon from "@material-ui/icons/Schedule";
-import GroupsIcon from "@material-ui/icons/Groups";
-import AppsIcon from "@material-ui/icons/Apps";
-import HelpIcon from "@material-ui/icons/Help";
-import CloseIcon from "@material-ui/icons/Close";
+import HomeIcon from "@mui/icons-material/HomeRounded";
+import HotelIcon from "@mui/icons-material/HotelRounded";
+import ImagesIcon from "@mui/icons-material/Photo";
+import MoreIcon from "@mui/icons-material/Menu";
+import RSVPIcon from "@mui/icons-material/Mail";
+import ScheduleIcon from "@mui/icons-material/Schedule";
+import GroupsIcon from "@mui/icons-material/Groups";
+import AppsIcon from "@mui/icons-material/Apps";
+import HelpIcon from "@mui/icons-material/Help";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
-    children?: React.ReactElement;
+    children: React.ReactElement;
   },
   ref: React.Ref<unknown>,
 ) {

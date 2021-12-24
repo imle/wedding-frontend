@@ -2,22 +2,23 @@ import React from "react";
 import {Link as RouterLink} from "react-router-dom";
 import {AxiosError} from "axios";
 import axios from "../data/axios";
-import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
+import {createStyles, Theme} from "@mui/material";
+import {withStyles, WithStyles} from "@mui/styles";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 import {Party} from "../@types/invitee";
 import {ErrorResponse, RsvpCodeResponse} from "../@types/responses";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -243,7 +244,7 @@ class ByCode extends React.Component<Props, State> {
                             <Grid item xs={4}>
                               {this.state.party!.edges.invitees!.some(invitee => invitee.has_plus_one) ? (
                                 <Typography align={"right"}>Plus One?</Typography>
-                              ): (
+                              ) : (
                                 <></>
                               )}
                             </Grid>

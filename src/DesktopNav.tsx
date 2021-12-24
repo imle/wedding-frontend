@@ -1,10 +1,11 @@
 import React from "react";
 import {Link as RouterLink} from "react-router-dom";
-import {createStyles, Theme, withStyles, WithStyles} from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Link from "@material-ui/core/Link";
+import { createStyles, Theme } from "@mui/material";
+import { WithStyles, withStyles } from "@mui/styles";
+import Paper from "@mui/material/Paper";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+// import Link from "@mui/material/Link";
 
 const styles = (theme: Theme) => createStyles({
   tab: {

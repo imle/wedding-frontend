@@ -1,7 +1,7 @@
 import React from "react";
-import ImageList from "@material-ui/core/ImageList";
-import Hidden from "@material-ui/core/Hidden";
-import Container from "@material-ui/core/Container";
+import ImageList from "@mui/material/ImageList";
+import Hidden from "@mui/material/Hidden";
+import Container from "@mui/material/Container";
 import {small, medium, large} from "./layout";
 
 

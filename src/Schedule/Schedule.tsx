@@ -1,10 +1,10 @@
 import React from "react";
 import ScheduleEvent from "./Event";
-import Container from "@material-ui/core/Container";
-import Hidden from "@material-ui/core/Hidden";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Box from "@material-ui/core/Box";
+import Container from "@mui/material/Container";
+import Hidden from "@mui/material/Hidden";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
 
 interface Props {
 }

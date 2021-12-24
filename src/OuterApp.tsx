@@ -1,16 +1,16 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {createMuiTheme} from "@material-ui/core/styles";
-import {MuiThemeProvider} from "@material-ui/core/styles";
+import {createMuiTheme} from "@mui/material/styles";
+import {ThemeProvider as MuiThemeProvider} from "@mui/material/styles";
 import {ThemeProvider} from "@emotion/react";
-import {useMediaQuery} from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import blue from "@material-ui/core/colors/blue";
+// import {useMediaQuery} from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import blue from "@mui/material/colors/blue";
 import PublicApp from "./App";
 
 
 export default function OuterApp() {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  // const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const additionalLineHeight = 0.05;
 
@@ -40,7 +40,8 @@ export default function OuterApp() {
           overline: { lineHeight: 2.66 + additionalLineHeight },
         },
       }),
-    [prefersDarkMode],
+    [],
+    // [prefersDarkMode],
   );
 
   return (
