@@ -1,6 +1,6 @@
 import React from "react";
-import {createStyles, Theme} from "@mui/material";
-import {withStyles, WithStyles} from "@mui/styles";
+import {Theme} from "@mui/material";
+import {createStyles, withStyles, WithStyles} from "@mui/styles";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import {differenceInCalendarDays} from "date-fns";

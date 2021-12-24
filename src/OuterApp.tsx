@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {createMuiTheme} from "@mui/material/styles";
+import {createTheme} from "@mui/material/styles";
 import {ThemeProvider as MuiThemeProvider} from "@mui/material/styles";
 import {ThemeProvider} from "@emotion/react";
 // import {useMediaQuery} from "@mui/material";
@@ -16,7 +16,7 @@ export default function OuterApp() {
 
   const theme = React.useMemo(
     () =>
-      createMuiTheme({
+      createTheme({
         palette: {
           // mode: (prefersDarkMode) ? "dark" : "light",
           primary: {

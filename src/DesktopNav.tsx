@@ -1,7 +1,7 @@
 import React from "react";
 import {Link as RouterLink} from "react-router-dom";
-import { createStyles, Theme } from "@mui/material";
-import { WithStyles, withStyles } from "@mui/styles";
+import { Theme } from "@mui/material";
+import { createStyles, WithStyles, withStyles } from "@mui/styles";
 import Paper from "@mui/material/Paper";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

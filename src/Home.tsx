@@ -1,7 +1,7 @@
 import React from "react";
 import {format} from "date-fns";
-import {createStyles, Theme} from "@mui/material";
-import {WithStyles, withStyles} from "@mui/styles";
+import {Theme} from "@mui/material";
+import {createStyles, WithStyles, withStyles} from "@mui/styles";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import {Image} from "@crystallize/react-image";
@@ -12,7 +12,6 @@ import CardContent from "@mui/material/CardContent";
 
 import venue_large from "./photos/the-estate.jpg";
 import piedmont_park from "./photos/piedmont-park-atlanta.jpg";
-import hero from "./photos/hero.png";
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -84,7 +83,7 @@ class Home extends React.Component<Props, State> {
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
-              url={hero}
+              url={"/hero.png"}
               altText={"hero"}
             />
           </Box>

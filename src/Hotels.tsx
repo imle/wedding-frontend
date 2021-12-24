@@ -1,6 +1,6 @@
 import React from "react";
-import {CardActions, createStyles, Dialog, DialogActions, DialogContent, DialogContentText, Theme} from "@mui/material";
-import {WithStyles, withStyles} from "@mui/styles";
+import {CardActions, Dialog, DialogActions, DialogContent, DialogContentText, Theme} from "@mui/material";
+import {createStyles, WithStyles, withStyles} from "@mui/styles";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
