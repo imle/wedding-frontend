@@ -1,8 +1,14 @@
 import React from "react";
 import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import QuestionBlock from "./QuestionBlock";
+import Box from "@mui/material/Box";
+import styled from "@emotion/styled";
+
+const Root = styled(Container)`
+  padding-top: ${props => props.theme.spacing(2)};
+  padding-bottom: ${props => props.theme.spacing(4)};
+`;
 
 interface Props {
   date_of_wedding: Date;
@@ -14,24 +20,34 @@ interface State {
 class FAQ extends React.Component<Props, State> {
   render() {
     return (
-      <Container maxWidth="md">
-        <Grid container sx={{p: 3}}>
-          <Grid item xs={12}>
-            <Typography align={"center"} variant={"h3"}>FAQs</Typography>
-            {/*<Typography align={"center"} variant={"body1"}>*/}
-            {/*  Please checkout our venue's new COVID-19 resources page for more*/}
-            {/*  details on how our wedding will be handled for the new date.*/}
-            {/*  Please stay tuned as this may get updated as new guidance is*/}
-            {/*  released by Texas Health and Human Services.*/}
-            {/*</Typography>*/}
-          </Grid>
-        </Grid>
+      <Root maxWidth="lg">
+        <Box pb={2}>
+          <Typography variant={"h4"}>FAQs</Typography>
+          {/*<Hidden smDown>*/}
+          {/*  <Divider orientation="horizontal"/>*/}
+          {/*</Hidden>*/}
+        </Box>
+        <QuestionBlock
+          question={`Why are there so many bees everywhere?`}
+          answer={`
+            Among early Imles, the name often appears as “Ihmle” and “Imlin” and is likely 
+            related to the archaic German word “Imme” (“bee”), from Middle High German “Imbe” (“bee; swarm of bees”), 
+            from Old High German “Imbi” (“swarm of bees”).
+          `}
+        />
+        <QuestionBlock
+          question={`How do I pronounce Savannah's new last name?`}
+          answer={`
+            Imle (i • mul)
+          `}
+        />
         <QuestionBlock
           question={`How should I get to the venue?`}
           answer={`
             If you are staying at the Grand Hyatt, it is only an 8 minute walk to the venue!
+            However, if you would prefer, there will be a shuttle to take you there and back.
             Atlanta is also a popular place to use a ridesharing service.
-            However, if you prefer to drive, there is a complimentary valet onsite.
+            But, if you prefer to drive, there is a complimentary valet on-site.
           `}
         />
         <QuestionBlock
@@ -44,8 +60,8 @@ class FAQ extends React.Component<Props, State> {
         <QuestionBlock
           question={`How can I get to the hotel from the airport?`}
           answer={`
-            If you don't want to rent a car, you can always use a ride share service!
-            However, the fastest way would be on the MARTA train's Red line via Buckhead Station.
+            The fastest way would be on the MARTA train's Red line via Buckhead Station.
+            However, if you don't want to rent a car, you can always use a ride share service!
           `}
         />
         <QuestionBlock
@@ -84,10 +100,10 @@ class FAQ extends React.Component<Props, State> {
           `}
         />
         <QuestionBlock
-          question={`What if I have food allergies or other dietary restrictions?`}
+          question={`What should I do if I have food allergies or other dietary restrictions?`}
           answer={`
-            Our caterer is very accommodating so please let us know of any
-            dietary restrictions on your RSVP so we can make the necessary arrangements. 
+            A number of guests have some form of dietary restrictions that we have taken into account!
+            The food will be similar to a buffet style and there should be something for everyone! 
           `}
         />
         <QuestionBlock
@@ -97,7 +113,7 @@ class FAQ extends React.Component<Props, State> {
             the second floor of the venue will be open and is only accessible by stairs.
           `}
         />
-      </Container>
+      </Root>
     );
   }
 }

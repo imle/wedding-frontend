@@ -13,7 +13,6 @@ import Link from "@mui/material/Link";
 import CardMedia from "@mui/material/CardMedia";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled from "@emotion/styled";
-import Hidden from "@mui/material/Hidden";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 
@@ -37,10 +36,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 const Root = styled(Container)`
-  ${props => props.theme.breakpoints.up("md")} {
-    padding-top: ${props => props.theme.spacing(4)};
-  }
-
+  padding-top: ${props => props.theme.spacing(2)};
   padding-bottom: ${props => props.theme.spacing(4)};
 `;
 
@@ -64,14 +60,35 @@ class Travel extends React.Component<Props, State> {
   render() {
     const {classes} = this.props;
 
+    const linkToMartaMap = "https://www.google.com/maps/dir/Hartsfield-Jackson+Atlanta+International+Airport+(ATL),+6000+N+Terminal+Pkwy,+Atlanta,+GA+30320/Grand+Hyatt+Atlanta+In+Buckhead,+Peachtree+Road+Northeast,+Atlanta,+GA/@33.7506832,-84.4640083,12z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x88f4fd2fe1035901:0x4117a3ef1892b048!2m2!1d-84.4277001!2d33.6407282!1m5!1m1!1s0x88f505f5de81bd69:0xcc4d549151cab6e0!2m2!1d-84.3704039!2d33.8452408!3e3";
     return (
       <Root maxWidth="lg">
-        <Hidden mdUp>
-          <Box p={1}>
-            <Typography variant={"h4"}>Accommodations</Typography>
-            <Divider orientation="horizontal"/>
-          </Box>
-        </Hidden>
+        <Box pb={2}>
+          <Typography variant={"h4"}>Shuttle</Typography>
+          <Divider orientation="horizontal"/>
+        </Box>
+        <Box pb={2}>
+          <Typography>
+            We will have transportation to and from the venue via a shuttle service.
+            The shuttle will pick up at the Grand Hyatt Atlanta and drop guests off at the hotel as needed.
+            If you are staying at the hotel, be sure to know when the shuttles are leaving so you make it to the
+            ceremony on time!
+            The bus will make its first trip 1 hour before the ceremony, its second and final trip will be 30 minutes
+            before the ceremony.
+          </Typography>
+        </Box>
+        <Box pb={2}>
+          <Typography variant={"h4"}>Accommodations</Typography>
+          <Divider orientation="horizontal"/>
+        </Box>
+        <Box pb={2}>
+          <Typography>
+            A block of rooms is reserved at the Grand Hyatt.
+            The <Link href={linkToMartaMap} target={"_blank"}>Red Line MARTA train</Link> can
+            take you almost directly to the hotel via Buckhead Station.
+            If you prefer not to use public transit, ride sharing services are quite popular in Atlanta.
+          </Typography>
+        </Box>
         <Grid container spacing={4} justifyContent="center">
           {accommodations.map((accommodation, i) => (
             <Grid key={accommodation.name} item xs={12} sm={i === 0 ? 12 : 6}>
@@ -87,18 +104,6 @@ class Travel extends React.Component<Props, State> {
                   <Typography variant={"subtitle2"} align={"center"}>
                     {accommodation.address}
                   </Typography>
-                  {i === 0 ?
-                    <Typography align={"center"}>
-                      <br/>
-                      Our official block is at this hotel.
-                      <br/>
-                      The Red Line MARTA train can take you almost directly to the hotel via Buckhead Station.
-                      <br/>
-                      If you prefer not to use public transit, ride sharing services are quite popular in Atlanta.
-                    </Typography>
-                    :
-                    <></>
-                  }
                 </CardContent>
                 <CardActions>
                   <ButtonGroup variant="text" fullWidth>

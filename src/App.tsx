@@ -13,7 +13,8 @@ import DesktopNav from "./DesktopNav";
 import Home from "./Home";
 import Gallery from "./Gallery/Gallery";
 import RSVPHoldOn from "./RSVP/HoldOn";
-import Travel from "./Hotels";
+import Travel from "./Travel";
+import Registry from "./Registry";
 import Schedule from "./Schedule/Schedule";
 import FAQ from "./FAQ/FAQ";
 
@@ -153,7 +154,7 @@ class App extends React.Component<Props, State> {
               <FAQ date_of_wedding={this.state.date_of_wedding}/>
             </Route>
             <Route path="/registry" exact>
-              {/*<Registry />*/}
+              <Registry />
             </Route>
             <Route path="/rsvp" exact>
               <RSVPHoldOn />

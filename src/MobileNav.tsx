@@ -11,7 +11,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Slide from '@mui/material/Slide';
 import ListItemIcon from "@mui/material/ListItemIcon";
-import Link from "@mui/material/Link";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -100,12 +99,20 @@ class MobileNav extends React.Component<Props, State> {
           />
           <BottomNavigationAction
             sx={{minWidth: 40}}
-            href={"https://steven-savannah.wedsites.com/rsvp"}
+            to={"/rsvp"}
             label="RSVP"
             value="rsvp"
             icon={<RSVPIcon/>}
-            component={Link}
+            component={RouterLink}
           />
+          {/*<BottomNavigationAction*/}
+          {/*  sx={{minWidth: 40}}*/}
+          {/*  href={"https://steven-savannah.wedsites.com/rsvp"}*/}
+          {/*  label="RSVP"*/}
+          {/*  value="rsvp"*/}
+          {/*  icon={<RSVPIcon/>}*/}
+          {/*  component={Link}*/}
+          {/*/>*/}
           <BottomNavigationAction
             sx={{minWidth: 40}}
             label="More"
@@ -187,7 +194,7 @@ class MobileNav extends React.Component<Props, State> {
             <Divider/>
             <ListItem button to={"/rsvp"} component={RouterLink} onClick={this.handleCloseSelected("rsvp")}>
               <ListItemIcon>
-                <HelpIcon />
+                <RSVPIcon />
               </ListItemIcon>
               <ListItemText primary="RSVP"/>
             </ListItem>
