@@ -30,9 +30,8 @@ class FAQ extends React.Component<Props, State> {
         <QuestionBlock
           question={`Why are there so many bees everywhere?`}
           answer={`
-            Among early Imles, the name often appears as “Ihmle” and “Imlin” and is likely 
-            related to the archaic German word “Imme” (“bee”), from Middle High German “Imbe” (“bee; swarm of bees”), 
-            from Old High German “Imbi” (“swarm of bees”).
+            Among early Imles, the name often appears as “Ihmle” and “Imlin” and is likely related to the archaic German word “Imme” (“bee”). 
+            We have embraced our beekeeping relatives and hidden bees throughout our wedding. “Bee” on the lookout for them and tell us how many you find!
           `}
         />
         <QuestionBlock
