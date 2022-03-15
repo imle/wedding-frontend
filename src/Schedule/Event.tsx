@@ -1,36 +1,14 @@
 import React from "react";
 import * as ics from "ics";
+import {useTheme} from '@mui/material/styles';
 import {format} from "date-fns";
 import styled from "@emotion/styled";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
-
-const DateTimeTypography = styled(Typography)`
-  ${props => props.theme.breakpoints.down("md")} {
-    font-size: medium;
-  }
-
-  ${props => props.theme.breakpoints.down("sm")} {
-    font-size: smaller;
-  }
-`;
-
-const TitleGridItem = styled(Grid)`
-  ${props => props.theme.breakpoints.down("sm")} {
-    position: relative;
-  }
-`;
-
-const TitleTypography = styled(Typography)`
-  ${props => props.theme.breakpoints.down("sm")} {
-    text-align: left;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-`;
+import Hidden from "@mui/material/Hidden";
+import {useMediaQuery} from "@mui/material";
 
 const DescriptionTypography = styled(Typography)`
   text-align: justify;
@@ -50,6 +28,9 @@ interface Props {
 }
 
 const ScheduleEvent: React.FC<Props> = (props) => {
+  const theme = useTheme();
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
+
   const obj = ics.createEvent({
     title: props.title,
     location: props.address,
@@ -71,24 +52,38 @@ const ScheduleEvent: React.FC<Props> = (props) => {
   }
 
   return (
-    <Grid container p={1} pb={2}>
-      <Grid item xs={3}>
-        <DateTimeTypography variant={"h6"} ml={1} mr={0.5}>
-          <Link type={"button"} href={url}>
-            {format(props.start, "MMM d @ h:mm a")}
-          </Link>
-        </DateTimeTypography>
-      </Grid>
-      <TitleGridItem item xs={9}>
-        <TitleTypography variant={"h6"} ml={0.5} mr={1}>
-          {props.title}
-        </TitleTypography>
-      </TitleGridItem>
+    <Grid container p={1} pb={2} alignItems="baseline">
+      <Hidden smDown>
+        <Grid item xs={5} sm={3}>
+          <Typography variant={mdUp ? "h6" : "body2"} ml={1} mr={0.5}>
+            <Link type={"button"} href={url}>
+              {format(props.start, "MMM d @ h:mm a")}
+            </Link>
+          </Typography>
+        </Grid>
+        <Grid item xs={7} sm={9}>
+          <Typography variant={"h6"} ml={0.5} mr={1}>
+            {props.title}
+          </Typography>
+        </Grid>
+      </Hidden>
+      <Hidden smUp>
+        <Grid item xs={12} display={"flex"} alignItems="baseline">
+          <Typography variant={"body2"} ml={1} mr={0.5}>
+            <Link type={"button"} href={url}>
+              {format(props.start, "MMM d @ h:mm a")}
+            </Link>
+          </Typography>
+          <Typography variant={"h6"} ml={0.5} mr={1} align={"right"} flexGrow={1}>
+            {props.title}
+          </Typography>
+        </Grid>
+      </Hidden>
       <Grid item xs={12}>
-        <Divider orientation="horizontal" sx={{borderBottomWidth: 2}}/>
+        <Divider orientation="horizontal"/>
       </Grid>
-      <Grid item xs={3}/>
-      <Grid item xs={9} mt={1}>
+      <Grid item xs={0} sm={3}/>
+      <Grid item xs={12} sm={9} mt={1}>
         <DescriptionTypography ml={0.5} mr={1}>
           <span>{props.description}</span>
           <br/>
@@ -97,7 +92,7 @@ const ScheduleEvent: React.FC<Props> = (props) => {
         </DescriptionTypography>
       </Grid>
     </Grid>
-  );
+);
 }
 
 export default ScheduleEvent;

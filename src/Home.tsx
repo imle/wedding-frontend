@@ -83,7 +83,7 @@ class Home extends React.Component<Props, State> {
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
-              url={"/hero.png"}
+              url={"/hero-interlaced.png"}
               altText={"hero"}
             />
           </Box>
