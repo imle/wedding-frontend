@@ -5,7 +5,7 @@ import { createStyles, WithStyles, withStyles } from "@mui/styles";
 import Paper from "@mui/material/Paper";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-// import Link from "@mui/material/Link";
+import Link from "@mui/material/Link";
 
 const styles = (theme: Theme) => createStyles({
   tab: {
@@ -52,8 +52,7 @@ class DesktopNav extends React.Component<Props, State> {
           <Tab className={classes.tab} label="Gallery" value={"gallery"} component={RouterLink} to={"/gallery"}/>
           <Tab className={classes.tab} label="Registry" value={"registry"} component={RouterLink} to={"/registry"}/>
           <Tab className={classes.tab} label="FAQ" value={"faq"} component={RouterLink} to={"/faq"}/>
-          <Tab className={classes.tab} label="RSVP" value={"rsvp"} component={RouterLink} to={"/rsvp"}/>
-          {/*<Tab className={classes.tab} label="RSVP" value={"rsvp"} component={Link} href={"https://steven-savannah.wedsites.com/rsvp"}/>*/}
+          <Tab className={classes.tab} label="RSVP" value={"rsvp"} component={Link} href={"https://steven-savannah.wedsites.com/rsvp"}/>
         </Tabs>
       </Paper>
     );

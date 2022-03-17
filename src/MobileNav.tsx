@@ -14,6 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 
 import HomeIcon from "@mui/icons-material/HomeRounded";
 import HotelIcon from "@mui/icons-material/HotelRounded";
@@ -99,20 +100,12 @@ class MobileNav extends React.Component<Props, State> {
           />
           <BottomNavigationAction
             sx={{minWidth: 40}}
-            to={"/rsvp"}
+            href={"https://steven-savannah.wedsites.com/rsvp"}
             label="RSVP"
             value="rsvp"
             icon={<RSVPIcon/>}
-            component={RouterLink}
+            component={Link}
           />
-          {/*<BottomNavigationAction*/}
-          {/*  sx={{minWidth: 40}}*/}
-          {/*  href={"https://steven-savannah.wedsites.com/rsvp"}*/}
-          {/*  label="RSVP"*/}
-          {/*  value="rsvp"*/}
-          {/*  icon={<RSVPIcon/>}*/}
-          {/*  component={Link}*/}
-          {/*/>*/}
           <BottomNavigationAction
             sx={{minWidth: 40}}
             label="More"
@@ -192,18 +185,12 @@ class MobileNav extends React.Component<Props, State> {
               <ListItemText primary="FAQ"/>
             </ListItem>
             <Divider/>
-            <ListItem button to={"/rsvp"} component={RouterLink} onClick={this.handleCloseSelected("rsvp")}>
+            <ListItem button href={"https://steven-savannah.wedsites.com/rsvp"} component={Link} onClick={this.handleCloseSelected("rsvp")}>
               <ListItemIcon>
                 <RSVPIcon />
               </ListItemIcon>
               <ListItemText primary="RSVP"/>
             </ListItem>
-            {/*<ListItem button href={"https://steven-savannah.wedsites.com/rsvp"} component={Link} onClick={this.handleCloseSelected("rsvp")}>*/}
-            {/*  <ListItemIcon>*/}
-            {/*    <RSVPIcon />*/}
-            {/*  </ListItemIcon>*/}
-            {/*  <ListItemText primary="RSVP"/>*/}
-            {/*</ListItem>*/}
             <Divider/>
           </List>
         </Dialog>
