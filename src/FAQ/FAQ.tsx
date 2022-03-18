@@ -41,6 +41,14 @@ class FAQ extends React.Component<Props, State> {
           `}
         />
         <QuestionBlock
+          question={`What do I do with the recipe card in my invitation?`}
+          answer={`
+            Please bring the recipe card enclosed in your invitation to the wedding.
+            There will be a table with a box for you to place your card in upon arrival.
+            If you are unable to celebrate with us, feel free to mail the card to us separately.
+          `}
+        />
+        <QuestionBlock
           question={`How should I get to the venue?`}
           answer={`
             If you are staying at the Grand Hyatt, it is only an 8 minute walk to the venue!
