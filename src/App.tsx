@@ -73,7 +73,7 @@ interface State {
 
 class App extends React.Component<Props, State> {
   state: State = {
-    date_of_wedding: new Date(2022, 4, 28, 18, 0),
+    date_of_wedding: new Date(2022, 4, 28, 17, 0),
     page: ((): string => {
       const pathParts = this.props.history.location.pathname.substr(1).split("/");
       if (pathParts[0].length > 0) {
